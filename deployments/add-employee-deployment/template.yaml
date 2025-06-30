@@ -25,19 +25,6 @@ Resources:
       CompatibleRuntimes:
         - python3.13
 
-  DependenciesLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      LayerName: dependencies-layer
-      ContentUri: ../../commons/layers/dependencies
-      CompatibleRuntimes:
-        - python3.13
-    Metadata:
-      BuildMethod: python3.13
-      BuildArchitecture: x86_64
-      Requirements: ../../commons/layers/dependencies/requirements.txt
-
-
   # DynamoDB Table
   EmployeeTable:
     Type: AWS::DynamoDB::Table
@@ -58,7 +45,6 @@ Resources:
       CodeUri: ../../add_employee_service/add_employee_lambda/src/
       Handler: handler.create_employee_handler.lambda_handler
       Layers:
-        - !Ref DependenciesLayer
         - !Ref SharedLayer
       Environment:
         Variables:
@@ -68,7 +54,7 @@ Resources:
         AddEmployeeAPI:
           Type: Api
           Properties:
-            Path: /employee
+            Path: /employees
             Method: post
       Policies:
         - AWSLambdaBasicExecutionRole
@@ -78,5 +64,5 @@ Resources:
 Outputs:
   AddEmployeeApiUrl:
     Description: API Gateway endpoint URL
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/employee"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/employees"
     
