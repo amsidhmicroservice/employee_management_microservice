@@ -3,15 +3,16 @@
 ## Build and Deploy Process
 
 1. Setup dependencies:
-```bash
-# Run the dependency management script
-python scripts/manage_dependencies.py
+Remove python folder from common/layers/dependencies/python
+ pip install -r common/layers/dependencies/requirements.txt -t common/layers/dependencies/python --upgrade
 
 # Build the project
-sam build --use-container
+sam build --template-file aws-deployments\add_employee\template.yaml --use-container  
+
 
 # Deploy
-sam deploy --guided
+sam deploy --template-file aws-deployments\add_employee\template.yaml --guided 
+
 ```
 
 Note: The script uses symbolic links on Unix-like systems and copies on Windows (since Windows requires special permissions for symlinks). This way:

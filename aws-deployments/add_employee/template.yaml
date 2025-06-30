@@ -21,7 +21,7 @@ Resources:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: shared-layer
-      ContentUri: layers/shared
+      ContentUri: ../../commons/layers/shared
       CompatibleRuntimes:
         - python3.13
 
@@ -29,13 +29,13 @@ Resources:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: dependencies-layer
-      ContentUri: layers/dependencies
+      ContentUri: ../../commons/layers/dependencies
       CompatibleRuntimes:
         - python3.13
     Metadata:
       BuildMethod: python3.13
       BuildArchitecture: x86_64
-      Requirements: layers/dependencies/requirements.txt
+      Requirements: ../../commons/layers/dependencies/requirements.txt
 
 
   # DynamoDB Table
@@ -55,7 +55,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: AddEmployeeFunction
-      CodeUri: add_employee_service/add_employee_lambda/
+      CodeUri: ../../add_employee_service/add_employee_lambda/src/
       Handler: handler.create_employee_handler.lambda_handler
       Layers:
         - !Ref DependenciesLayer
