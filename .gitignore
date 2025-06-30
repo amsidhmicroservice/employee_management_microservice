@@ -1,4 +1,4 @@
-/.aws-sam/
 /.venv/
-/layers/dependencies/python/
 /.idea/
+/deployments/create-employee-deployment/.aws-sam/
+/deployments/get-employee-deployment/.aws-sam/
