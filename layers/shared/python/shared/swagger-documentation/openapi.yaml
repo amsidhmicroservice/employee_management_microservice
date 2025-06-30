@@ -1,0 +1,40 @@
+# ======================= swagger-documentation/openapi.yaml =======================
+openapi: 3.0.0
+info:
+  title: Employee Management API
+  version: 1.0.0
+paths:
+  /employee:
+    post:
+      summary: Create a new employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeCreate'
+      responses:
+        '201':
+          description: Employee created
+        '400':
+          description: Invalid request
+        '500':
+          description: Server error
+components:
+  schemas:
+    EmployeeCreate:
+      type: object
+      required:
+        - employee_id
+        - full_name
+        - email
+        - job_title
+      properties:
+        employee_id:
+          type: string
+        full_name:
+          type: string
+        email:
+          type: string
+        job_title:
+          type: string
