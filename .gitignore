@@ -1,4 +1,3 @@
 /.aws-sam/
 /.venv/
-/layers/dependencies/python/
 /.idea/
