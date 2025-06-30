@@ -1,8 +1,8 @@
 # delete_employee_lambda/handler/delete_employee_handler.py
 from shared.common.decorators import log_operation
-from add_employee_service.src.service import DeleteEmployeeService
-from shared import handle_exception
-from shared import build_success_response
+from service.delete_employee_service import DeleteEmployeeService
+from shared.validation.exception_handler import handle_exception
+from shared.model.response_model import build_success_response
 
 
 @log_operation

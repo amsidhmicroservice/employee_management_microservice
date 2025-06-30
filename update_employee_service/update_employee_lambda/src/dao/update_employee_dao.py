@@ -2,13 +2,24 @@
 import os
 
 from shared.common.decorators import log_operation
-from shared import get_dynamodb_resource
+from shared.config.database_config import get_dynamodb_resource
 
 
 class UpdateEmployeeDAO:
     def __init__(self):
         self.table_name = os.environ["TABLE_NAME"]
         self.table = get_dynamodb_resource().Table(self.table_name)
+
+    @log_operation
+    def get_employee(self, employee_id: str) -> dict:
+        response = self.table.get_item(
+            Key={'employee_id': employee_id}
+        )
+
+        if 'Item' not in response:
+            raise ValueError(f"Employee with ID {employee_id} not found")
+
+        return response['Item']
 
     @log_operation
     def update_employee(self, employee: dict) -> dict:

@@ -9,5 +9,8 @@ sam build --use-container
 1. First Go to shared-resources folder and deploy the shared resources:
 sam deploy --template-file shared-resources.yaml --stack-name shared-resources-stack
 2. Then deploy your service-specific stacks:
-sam deploy --template-file template.yaml --stack-name create-employee-stack
-sam deploy --template-file template.yaml --stack-name get-employee-stack
+sam build --use-container
+sam deploy --stack-name create-employee-stack
+
+sam build --use-container
+sam deploy --stack-name get-employee-stack

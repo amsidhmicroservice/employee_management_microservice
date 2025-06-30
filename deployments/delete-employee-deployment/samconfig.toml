@@ -1,8 +1,8 @@
 version = 0.1
 [default.deploy.parameters]
-stack_name = "add-employee-service-stack"
+stack_name = "delete-employee-stack"
 resolve_s3 = true
-s3_prefix = "add-employee-service-stack"
+s3_prefix = "delete-employee-stack"
 region = "eu-north-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"

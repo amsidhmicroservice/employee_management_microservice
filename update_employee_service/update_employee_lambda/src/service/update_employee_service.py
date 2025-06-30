@@ -1,6 +1,6 @@
 # update_employee_lambda/service/update_employee_service.py
 from shared.common.decorators import log_operation
-from add_employee_service.src.dao import UpdateEmployeeDAO
+from dao.update_employee_dao import UpdateEmployeeDAO
 from shared.model.employee_model import Employee
 
 

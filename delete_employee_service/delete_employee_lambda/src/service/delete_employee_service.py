@@ -1,6 +1,6 @@
 # delete_employee_lambda/service/delete_employee_service.py
 from shared.common.decorators import log_operation
-from add_employee_service.src.dao import DeleteEmployeeDAO
+from dao.delete_employee_dao import DeleteEmployeeDAO
 
 
 class DeleteEmployeeService:
