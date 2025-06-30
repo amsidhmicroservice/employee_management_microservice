@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Create Employee Lambda Function using DynamoDB with two layers
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: python3.13
+    Architectures:
+      - x86_64
+    Tracing: Active
+
+Resources:
+  SharedLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: shared-layer
+      ContentUri: ../../commons/layers/shared
+      CompatibleRuntimes:
+        - python3.13
+
+  CreateEmployeeLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: CreateEmployeeFunction
+      CodeUri: ../../create_employee_service/create_employee_lambda/src/
+      Handler: handler.create_employee_handler.lambda_handler
+      Layers:
+        - !Ref SharedLayer
+      Environment:
+        Variables:
+          TABLE_NAME: !ImportValue shared-resources-stack-EmployeeTableName
+          LOG_LEVEL: INFO
+      Events:
+        CreateEmployeeAPI:
+          Type: Api
+          Properties:
+            Path: /employees
+            Method: post
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - DynamoDBCrudPolicy:
+            TableName: !ImportValue shared-resources-stack-EmployeeTableName
+
+Outputs:
+  CreateEmployeeApiUrl:
+    Description: API Gateway endpoint URL for Create Employee
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/employees"
