@@ -78,3 +78,6 @@ You can now manage all your dependencies in a single file while the script handl
 aws sts get-caller-identity
 
 pip install --upgrade awscli
+
+
+aws cloudformation delete-stack --stack-name add-employee-service-stack
