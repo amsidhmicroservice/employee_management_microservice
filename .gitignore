@@ -1,3 +1,4 @@
 /.aws-sam/
 /.venv/
 /.idea/
+/deployments/add-employee-deployment/.aws-sam/
