@@ -1,0 +1,25 @@
+
+@startuml Delete Employee Sequence
+participant "API Gateway" as api
+participant "Delete Employee\nLambda" as lambda
+participant "Delete Employee\nService" as service
+participant "DynamoDB" as db
+
+api -> lambda: HTTP DELETE /employees/{employee_id}
+activate lambda
+
+lambda -> lambda: Extract employee_id from path
+lambda -> service: delete_employee(employee_id)
+activate service
+
+service -> db: Delete Item
+activate db
+db --> service: Confirmation
+deactivate db
+
+service --> lambda: Employee deleted
+deactivate service
+
+lambda --> api: HTTP 204 No Content
+deactivate lambda
+@enduml

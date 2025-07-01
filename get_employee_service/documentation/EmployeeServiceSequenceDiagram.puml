@@ -1,0 +1,30 @@
+@startuml Get Employee Sequence
+participant "API Gateway" as api
+participant "Get Employee\nLambda" as lambda
+participant "Get Employee\nService" as service
+participant "IP Resolver" as ip
+participant "DynamoDB" as db
+
+api -> lambda: HTTP GET /employees/{employee_id}
+activate lambda
+
+lambda -> lambda: Extract employee_id from path
+lambda -> service: get_employee(employee_id)
+activate service
+
+service -> db: Get Item
+activate db
+db --> service: Employee data
+deactivate db
+
+service --> lambda: Employee data
+deactivate service
+
+lambda -> ip: get_host_ip_with_retry()
+activate ip
+ip --> lambda: host_ip
+deactivate ip
+
+lambda --> api: HTTP 200 OK\n{employee, host_ip}
+deactivate lambda
+@enduml

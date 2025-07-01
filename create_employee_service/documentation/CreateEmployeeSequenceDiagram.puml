@@ -1,0 +1,25 @@
+@startuml Create Employee Sequence
+participant "API Gateway" as api
+participant "Create Employee\nLambda" as lambda
+participant "Create Employee\nService" as service
+participant "DynamoDB" as db
+
+api -> lambda: HTTP POST /employees
+activate lambda
+
+lambda -> lambda: Extract request body
+lambda -> service: create_employee(employee_data)
+activate service
+
+service -> service: Validate employee data
+service -> db: Put Item
+activate db
+db --> service: Confirmation
+deactivate db
+
+service --> lambda: Employee created
+deactivate service
+
+lambda --> api: HTTP 201 Created
+deactivate lambda
+@enduml
