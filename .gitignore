@@ -4,3 +4,5 @@
 /deployments/get-employee-deployment/.aws-sam/
 /deployments/delete-employee-deployment/.aws-sam/
 /deployments/update-employee-deployment/.aws-sam/
+/.pytest_cache/
+.coverage
