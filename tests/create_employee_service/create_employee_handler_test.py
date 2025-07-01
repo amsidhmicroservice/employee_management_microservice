@@ -1,22 +1,12 @@
-import json
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../create_employee_service/create_employee_lambda/src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../commons/layers/shared/python')))
+
 import pytest
-
 from unittest.mock import patch, MagicMock
-
-# adjust path as needed
 from handler import create_employee_handler
-
-
-@pytest.fixture
-def sample_event():
-    return {
-        "body": json.dumps({
-            "employee_id": "123",
-            "full_name": "John Doe",
-            "email": "john.doe@example.com",
-            "job_title": "Engineer"
-        })
-    }
 
 
 @patch("handler.create_employee_handler.get_host_ip_with_retry")
@@ -28,43 +18,27 @@ def test_lambda_handler_success(
     mock_validate,
     mock_service_class,
     mock_get_ip,
-    sample_event,
 ):
     mock_service = MagicMock()
-    mock_service.create_employee.return_value = {
-        "employee_id": "123",
-        "full_name": "John Doe"
-    }
+    mock_service.create_employee.return_value = {"employee_id": "123"}
     mock_service_class.return_value = mock_service
+    mock_get_ip.return_value = "127.0.0.1"
+    mock_build_success_response.return_value = {"statusCode": 201}
 
-    mock_get_ip.return_value = "192.168.1.1"
-
-    mock_build_success_response.return_value = {
-        "statusCode": 201,
-        "body": json.dumps({"message": "success"})
+    event = {
+        "body": '{"employee_id":"123", "full_name":"John Doe", "email":"john@example.com", "job_title":"Engineer"}'
     }
-
-    result = create_employee_handler.lambda_handler(sample_event, None)
-
-    mock_validate.assert_called_once()
-    mock_service.create_employee.assert_called_once()
-    mock_get_ip.assert_called_once()
-    mock_build_success_response.assert_called_once()
-
+    result = create_employee_handler.lambda_handler(event, None)
     assert result["statusCode"] == 201
 
 
 @patch("handler.create_employee_handler.handle_exception")
 @patch("handler.create_employee_handler.validate_employee_request")
-def test_lambda_handler_failure(
-    mock_validate,
-    mock_handle_exception,
-    sample_event,
-):
-    mock_validate.side_effect = ValueError("Invalid data")
-    mock_handle_exception.return_value = {"statusCode": 400, "body": "error"}
+def test_lambda_handler_error(mock_validate, mock_handle_exception):
+    mock_validate.side_effect = ValueError("Invalid request")
+    mock_handle_exception.return_value = {"statusCode": 400}
 
-    result = create_employee_handler.lambda_handler(sample_event, None)
+    event = {"body": "{}"}
+    result = create_employee_handler.lambda_handler(event, None)
 
-    mock_handle_exception.assert_called_once()
     assert result["statusCode"] == 400

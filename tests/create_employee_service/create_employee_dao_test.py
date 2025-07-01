@@ -1,5 +1,10 @@
+import sys
 import os
-import pytest
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../create_employee_service/create_employee_lambda/src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../commons/layers/shared/python')))
+
+import os
 from unittest.mock import patch, MagicMock
 from dao.create_employee_dao import CreateEmployeeDAO
 
@@ -11,25 +16,16 @@ def test_insert_employee_success(mock_get_resource):
     mock_table = MagicMock()
     mock_dynamodb = MagicMock()
     mock_dynamodb.Table.return_value = mock_table
-
     mock_get_resource.return_value = mock_dynamodb
 
     dao = CreateEmployeeDAO()
-
     employee = {
         "employee_id": "123",
         "full_name": "John Doe",
         "email": "john.doe@example.com",
         "job_title": "Engineer"
     }
-
     result = dao.insert_employee(employee)
 
-    mock_table.put_item.assert_called_once_with(Item={
-        "employee_id": "123",
-        "full_name": "John Doe",
-        "email": "john.doe@example.com",
-        "job_title": "Engineer"
-    })
-
+    mock_table.put_item.assert_called_once_with(Item=employee)
     assert result == employee

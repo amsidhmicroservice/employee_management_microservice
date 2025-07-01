@@ -25,3 +25,22 @@ For html report use following command
 pytest --cov=handler --cov=service --cov=dao  --cov=backend_ip_client --cov-report=html tests/
 
 Then open:htmlcov/index.html
+
+
+OR
+We are created automatic pytest.ini file for test case run and generate report
+Go to powershell and run following command in ps.
+
+For create an employee service code coverage report run the following command
+$env:PYTHONPATH = ".\create_employee_service\create_employee_lambda\src;.\commons\layers\shared\python"
+pytest -c tests/create_employee_service_pytest.ini tests/create_employee_service
+
+And
+for get an employee service code coverage report run the following command
+$env:PYTHONPATH = ".\get_employee_service\get_employee_lambda\src;.\commons\layers\shared\python"
+pytest -c tests/get_employee_service_pytest.ini tests/get_employee_service
+
+
+OR
+open command prompt and run following command
+.\run_all_tests.bat

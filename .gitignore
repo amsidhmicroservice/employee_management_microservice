@@ -6,3 +6,4 @@
 /deployments/update-employee-deployment/.aws-sam/
 /.pytest_cache/
 .coverage
+/tests/coverage/
