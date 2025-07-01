@@ -1,0 +1,84 @@
+employee_management_system/
+├── create_employee_service/
+│   ├── create_employee_lambda/
+│   │   ├── src/
+│   │   │   ├── handler/
+│   │   │   │   ├── create_employee_handler.py
+│   │   │   │   └── __init__.py
+│   │   │   ├── dao/
+│   │   │   │   ├── create_employee_dao.py
+│   │   │   │   └── __init__.py
+│   │   │   ├── backend_ip_client/
+│   │   │   │   ├── ip_resolver.py
+│   │   │   │   └── __init__.py
+│   │   │   └── __init__.py
+│   │   ├── requirements.txt
+│   │   └── serverless.yml
+│   └── __init__.py
+├── delete_employee_service/
+│   ├── delete_employee_lambda/
+│   │   ├── src/
+│   │   │   ├── handler/
+│   │   │   │   ├── delete_employee_handler.py
+│   │   │   │   └── __init__.py
+│   │   │   ├── dao/
+│   │   │   │   ├── delete_employee_dao.py
+│   │   │   │   └── __init__.py
+│   │   │   └── __init__.py
+│   │   ├── requirements.txt
+│   │   └── serverless.yml
+│   └── __init__.py
+├── get_employee_service/
+│   ├── get_employee_lambda/
+│   │   ├── src/
+│   │   │   ├── handler/
+│   │   │   │   ├── get_employee_handler.py
+│   │   │   │   └── __init__.py
+│   │   │   ├── dao/
+│   │   │   │   ├── get_employee_dao.py
+│   │   │   │   └── __init__.py
+│   │   │   ├── backend_ip_client/
+│   │   │   │   ├── ip_resolver.py
+│   │   │   │   └── __init__.py
+│   │   │   └── __init__.py
+│   │   ├── requirements.txt
+│   │   └── serverless.yml
+│   └── __init__.py
+├── update_employee_service/
+│   ├── update_employee_lambda/
+│   │   ├── src/
+│   │   │   ├── handler/
+│   │   │   │   ├── update_employee_handler.py
+│   │   │   │   └── __init__.py
+│   │   │   ├── dao/
+│   │   │   │   ├── update_employee_dao.py
+│   │   │   │   └── __init__.py
+│   │   │   └── __init__.py
+│   │   ├── requirements.txt
+│   │   └── serverless.yml
+│   └── __init__.py
+├── commons/
+│   ├── layers/
+│   │   ├── shared/
+│   │   │   ├── python/
+│   │   │   │   ├── shared/
+│   │   │   │   │   ├── __init__.py
+│   │   │   │   │   ├── model/
+│   │   │   │   │   │   ├── __init__.py
+│   │   │   │   │   │   ├── employee_model.py
+│   │   │   │   │   │   └── response_model.py
+│   │   │   │   │   ├── validation/
+│   │   │   │   │   │   ├── __init__.py
+│   │   │   │   │   │   ├── employee_update_validation.py
+│   │   │   │   │   │   └── request_validation.py
+│   │   │   │   │   └── utils/
+│   │   │   │   │       ├── __init__.py
+│   │   │   │   │       ├── logger.py
+│   │   │   │   │       └── validator.py
+│   │   │   │   └── __init__.py
+│   │   └── __init__.py
+│   └── __init__.py
+├── requirements.txt
+├── setup.py
+├── serverless.yml
+└── README.md
