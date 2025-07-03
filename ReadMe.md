@@ -1,6 +1,7 @@
 # Directory structure for employee-management project with CRUD operations
 
 # Employee Management System
+aws sts get-caller-identity
 
 Go to respective deployment folders
 sam build --use-container
