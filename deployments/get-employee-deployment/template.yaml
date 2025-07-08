@@ -1,8 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Get Employee Lambda Function using DynamoDB with two layers
+Description: Get Employee Lambda Function
 
 Globals:
+  Api:
+    # Global API Gateway configurations
+    EndpointConfiguration: REGIONAL
+    Cors:
+      AllowMethods: "'GET'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+      AllowOrigin: "'*'"
   Function:
     Timeout: 10
     Runtime: python3.13
@@ -11,7 +18,7 @@ Globals:
     Tracing: Active
 
 Resources:
-  SharedLayer:
+  SharedLayerResource:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: shared-layer
@@ -19,14 +26,23 @@ Resources:
       CompatibleRuntimes:
         - python3.13
 
-  GetEmployeeLambdaFunction:
+  # Define the API Gateway
+  EmployeeApiGatewayResource:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: get-employee-api-gateway
+      StageName: Prod
+      EndpointConfiguration:
+        Type: REGIONAL
+
+  GetEmployeeLambdaFunctionResource:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: GetEmployeeFunction
       CodeUri: ../../get_employee_service/get_employee_lambda/src/
       Handler: handler.get_employee_handler.lambda_handler
       Layers:
-        - !Ref SharedLayer
+        - !Ref SharedLayerResource
       Environment:
         Variables:
           TABLE_NAME: !ImportValue shared-resources-stack-EmployeeTableName
@@ -35,14 +51,32 @@ Resources:
         GetEmployeeAPI:
           Type: Api
           Properties:
+            RestApiId: !Ref EmployeeApiGatewayResource
             Path: /employees/{employee_id}
             Method: get
       Policies:
         - AWSLambdaBasicExecutionRole
-        - DynamoDBCrudPolicy:
-            TableName: !ImportValue shared-resources-stack-EmployeeTableName
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+              Resource: !ImportValue shared-resources-stack-EmployeeTableArn
+
+
+  # API Gateway permissions for Lambda
+  GetEmployeeAPIGatewayPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt GetEmployeeLambdaFunctionResource.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${EmployeeApiGatewayResource}/*/GET/employees/{employee_id}"
 
 Outputs:
   GetEmployeeApiUrl:
-    Description: API Gateway endpoint URL for Get Employee by employee_id
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/employees/{employee_id}"
+    Description: API Gateway endpoint URL for Get Employee
+    Value: !Sub "https://${EmployeeApiGatewayResource}.execute-api.${AWS::Region}.amazonaws.com/Prod/employees/{employee_id}"
+
+  ApiGatewayId:
+    Description: API Gateway ID
+    Value: !Ref EmployeeApiGatewayResource

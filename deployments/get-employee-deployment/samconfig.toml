@@ -4,7 +4,7 @@ stack_name = "get-employee-stack"
 resolve_s3 = true
 s3_prefix = "get-employee-stack"
 region = "eu-north-1"
-confirm_changeset = true
+confirm_changeset = false
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
 parameter_overrides = "TableName=\"Employees\""

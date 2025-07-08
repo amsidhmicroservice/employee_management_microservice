@@ -1,8 +1,14 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Update Employee Lambda Function using DynamoDB with two layers
+Description: Update Employee Lambda Function
 
 Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+    Cors:
+      AllowMethods: "'PUT'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+      AllowOrigin: "'*'"
   Function:
     Timeout: 10
     Runtime: python3.13
@@ -11,7 +17,8 @@ Globals:
     Tracing: Active
 
 Resources:
-  SharedLayer:
+
+  SharedLayerResource:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: shared-layer
@@ -19,14 +26,22 @@ Resources:
       CompatibleRuntimes:
         - python3.13
 
-  UpdateEmployeeLambdaFunction:
+  EmployeeApiGatewayResource:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: update-employees-api-gateway
+      StageName: Prod
+      EndpointConfiguration:
+        Type: REGIONAL
+
+  UpdateEmployeeLambdaFunctionResource:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: UpdateEmployeeFunction
       CodeUri: ../../update_employee_service/update_employee_lambda/src/
       Handler: handler.update_employee_handler.lambda_handler
       Layers:
-        - !Ref SharedLayer
+        - !Ref SharedLayerResource
       Environment:
         Variables:
           TABLE_NAME: !ImportValue shared-resources-stack-EmployeeTableName
@@ -35,14 +50,31 @@ Resources:
         UpdateEmployeeAPI:
           Type: Api
           Properties:
+            RestApiId: !Ref EmployeeApiGatewayResource
             Path: /employees/{employee_id}
             Method: put
       Policies:
         - AWSLambdaBasicExecutionRole
-        - DynamoDBCrudPolicy:
-            TableName: !ImportValue shared-resources-stack-EmployeeTableName
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:UpdateItem
+              Resource: !ImportValue shared-resources-stack-EmployeeTableArn
+
+  UpdateEmployeeAPIGatewayPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt UpdateEmployeeLambdaFunctionResource.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${EmployeeApiGatewayResource}/*/PUT/employees/{employee_id}"
 
 Outputs:
   UpdateEmployeeApiUrl:
-    Description: API Gateway endpoint URL for Update Employee by employee_id
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/employees/{employee_id}"
+    Description: API Gateway endpoint URL for Update Employee
+    Value: !Sub "https://${EmployeeApiGatewayResource}.execute-api.${AWS::Region}.amazonaws.com/Prod/employees/{employee_id}"
+
+  ApiGatewayId:
+    Description: API Gateway ID
+    Value: !Ref EmployeeApiGatewayResource

@@ -15,3 +15,15 @@ sam deploy --stack-name create-employee-stack
 
 sam build --use-container
 sam deploy --stack-name get-employee-stack
+
+
+delete all stacks using aws command
+
+aws cloudformation delete-stack --stack-name update-employee-stack
+aws cloudformation delete-stack --stack-name delete-employee-stack
+aws cloudformation delete-stack --stack-name get-employee-stack
+aws cloudformation delete-stack --stack-name create-employee-stack
+aws cloudformation delete-stack --stack-name  get-all-employees-stack
+aws cloudformation delete-stack --stack-name shared-resources-stack
+
+

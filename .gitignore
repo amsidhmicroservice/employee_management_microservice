@@ -8,3 +8,4 @@
 .coverage
 /tests/coverage/
 /deployments/get-all-employees-deployment/.aws-sam/
+/deployments/shared-resources/.aws-sam/

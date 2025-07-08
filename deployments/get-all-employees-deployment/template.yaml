@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Get All Employees Lambda Function using DynamoDB with two layers
+Description: Get All Employees Lambda Function
 
 Globals:
   Api:
@@ -56,11 +56,15 @@ Resources:
             Method: get
       Policies:
         - AWSLambdaBasicExecutionRole
-        - DynamoDBReadPolicy:
-            TableName: !ImportValue shared-resources-stack-EmployeeTableName
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:Scan
+              Resource: !ImportValue shared-resources-stack-EmployeeTableArn
+
 
   # API Gateway permissions for Lambda
-  GetAllEmployeesPermission:
+  GetAllEmployeesAPIGatewayPermission:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
@@ -72,6 +76,7 @@ Outputs:
   GetAllEmployeesApiUrl:
     Description: API Gateway endpoint URL for Get All Employees
     Value: !Sub "https://${EmployeeApiGatewayResource}.execute-api.${AWS::Region}.amazonaws.com/Prod/employees"
+
   ApiGatewayId:
     Description: API Gateway ID
     Value: !Ref EmployeeApiGatewayResource
