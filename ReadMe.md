@@ -27,3 +27,11 @@ aws cloudformation delete-stack --stack-name  get-all-employees-stack
 aws cloudformation delete-stack --stack-name shared-resources-stack
 
 
+Problem: If no bucket is created, then create a bucket using the following command:
+aws s3 mb s3://aws-sam-cli-managed-default-samclisourcebucket-za0nuebmdmed --region eu-north-1
+# To delete the bucket, use the following command:
+aws s3 rb s3://aws-sam-cli-managed-default-samclisourcebucket-za0nuebmdmed --force --region eu-north-1
+# To delete the stack, use the following command:
+aws cloudformation delete-stack --stack-name shared-resources-stack
+
+

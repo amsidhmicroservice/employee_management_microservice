@@ -34,6 +34,8 @@ Resources:
       StageName: Prod
       EndpointConfiguration:
         Type: REGIONAL
+      Auth:
+        ApiKeyRequired: true
 
   GetEmployeeLambdaFunctionResource:
     Type: AWS::Serverless::Function
@@ -62,8 +64,6 @@ Resources:
                 - dynamodb:GetItem
               Resource: !ImportValue shared-resources-stack-EmployeeTableArn
 
-
-  # API Gateway permissions for Lambda
   GetEmployeeAPIGatewayPermission:
     Type: AWS::Lambda::Permission
     Properties:
@@ -71,6 +71,42 @@ Resources:
       FunctionName: !GetAtt GetEmployeeLambdaFunctionResource.Arn
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${EmployeeApiGatewayResource}/*/GET/employees/{employee_id}"
+
+
+  GetEmployeeApiKey:
+    Type: AWS::ApiGateway::ApiKey
+    DependsOn:
+      - EmployeeApiGatewayResource
+    Properties:
+      Name: GetEmployeeApiKey
+      Description: API Key for Get Employee API
+      Enabled: true
+
+  EmployeeApiUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    DependsOn:
+      - EmployeeApiGatewayResource
+      - GetEmployeeLambdaFunctionResource
+    Properties:
+      UsagePlanName: EmployeeApiUsagePlan
+      Description: Usage plan for Employee API
+      ApiStages:
+        - ApiId: !Ref EmployeeApiGatewayResource
+          Stage: Prod
+      Quota:
+        Limit: 1000
+        Period: MONTH
+      Throttle:
+        BurstLimit: 10
+        RateLimit: 5
+
+  EmployeeApiUsagePlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    DependsOn: EmployeeApiUsagePlan
+    Properties:
+      KeyId: !Ref GetEmployeeApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref EmployeeApiUsagePlan
 
 Outputs:
   GetEmployeeApiUrl:
@@ -80,3 +116,7 @@ Outputs:
   ApiGatewayId:
     Description: API Gateway ID
     Value: !Ref EmployeeApiGatewayResource
+
+  ApiKey:
+    Description: API Key ID
+    Value: !Ref GetEmployeeApiKey

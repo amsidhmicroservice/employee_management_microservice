@@ -1,4 +1,5 @@
 version = 0.1
+
 [default.deploy.parameters]
 stack_name = "create-employee-stack"
 resolve_s3 = true
@@ -7,5 +8,4 @@ region = "eu-north-1"
 confirm_changeset = false
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
-parameter_overrides = "TableName=\"Employees\""
 image_repositories = []

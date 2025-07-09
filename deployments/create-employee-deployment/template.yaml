@@ -70,26 +70,20 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${EmployeeApiGatewayResource}/*/POST/employees"
 
-  # API Key resources
   CreateEmployeeApiKey:
     Type: AWS::ApiGateway::ApiKey
     DependsOn:
       - EmployeeApiGatewayResource
-      - ApiGatewayStage
     Properties:
       Name: CreateEmployeeApiKey
       Description: API Key for Create Employee API
       Enabled: true
-      StageKeys:
-        - RestApiId: !Ref EmployeeApiGatewayResource
-          StageName: Prod
 
-  # Usage Plan
   EmployeeApiUsagePlan:
     Type: AWS::ApiGateway::UsagePlan
     DependsOn:
       - EmployeeApiGatewayResource
-      - ApiGatewayStage
+      - CreateEmployeeLambdaFunctionResource
     Properties:
       UsagePlanName: EmployeeApiUsagePlan
       Description: Usage plan for Employee API
@@ -103,7 +97,6 @@ Resources:
         BurstLimit: 10
         RateLimit: 5
 
-  # Associate API Key with Usage Plan
   EmployeeApiUsagePlanKey:
     Type: AWS::ApiGateway::UsagePlanKey
     DependsOn: EmployeeApiUsagePlan
@@ -111,21 +104,6 @@ Resources:
       KeyId: !Ref CreateEmployeeApiKey
       KeyType: API_KEY
       UsagePlanId: !Ref EmployeeApiUsagePlan
-
-  # Explicit Stage Definition
-  ApiGatewayStage:
-    Type: AWS::ApiGateway::Stage
-    Properties:
-      DeploymentId: !Ref ApiGatewayDeployment
-      RestApiId: !Ref EmployeeApiGatewayResource
-      StageName: Prod
-
-  # Explicit Deployment
-  ApiGatewayDeployment:
-    Type: AWS::ApiGateway::Deployment
-    DependsOn: CreateEmployeeLambdaFunctionResource
-    Properties:
-      RestApiId: !Ref EmployeeApiGatewayResource
 
 Outputs:
   CreateEmployeeApiUrl:

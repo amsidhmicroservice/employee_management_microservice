@@ -9,3 +9,5 @@
 /tests/coverage/
 /deployments/get-all-employees-deployment/.aws-sam/
 /deployments/shared-resources/.aws-sam/
+/employee-authorizer/python/
+/employee-authorizer/employee_authorizer.zip

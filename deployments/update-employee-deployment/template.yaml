@@ -17,7 +17,6 @@ Globals:
     Tracing: Active
 
 Resources:
-
   SharedLayerResource:
     Type: AWS::Serverless::LayerVersion
     Properties:
@@ -26,13 +25,16 @@ Resources:
       CompatibleRuntimes:
         - python3.13
 
+  # Define the API Gateway
   EmployeeApiGatewayResource:
     Type: AWS::Serverless::Api
     Properties:
-      Name: update-employees-api-gateway
+      Name: update-employee-api-gateway
       StageName: Prod
       EndpointConfiguration:
         Type: REGIONAL
+      Auth:
+        ApiKeyRequired: true
 
   UpdateEmployeeLambdaFunctionResource:
     Type: AWS::Serverless::Function
@@ -70,6 +72,41 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${EmployeeApiGatewayResource}/*/PUT/employees/{employee_id}"
 
+  UpdateEmployeeApiKey:
+    Type: AWS::ApiGateway::ApiKey
+    DependsOn:
+      - EmployeeApiGatewayResource
+    Properties:
+      Name: UpdateEmployeeApiKey
+      Description: API Key for Update Employee API
+      Enabled: true
+
+  EmployeeApiUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    DependsOn:
+      - EmployeeApiGatewayResource
+      - UpdateEmployeeLambdaFunctionResource
+    Properties:
+      UsagePlanName: EmployeeApiUsagePlan
+      Description: Usage plan for Employee API
+      ApiStages:
+        - ApiId: !Ref EmployeeApiGatewayResource
+          Stage: Prod
+      Quota:
+        Limit: 1000
+        Period: MONTH
+      Throttle:
+        BurstLimit: 10
+        RateLimit: 5
+
+  EmployeeApiUsagePlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    DependsOn: EmployeeApiUsagePlan
+    Properties:
+      KeyId: !Ref UpdateEmployeeApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref EmployeeApiUsagePlan
+
 Outputs:
   UpdateEmployeeApiUrl:
     Description: API Gateway endpoint URL for Update Employee
@@ -78,3 +115,7 @@ Outputs:
   ApiGatewayId:
     Description: API Gateway ID
     Value: !Ref EmployeeApiGatewayResource
+
+  ApiKey:
+    Description: API Key ID
+    Value: !Ref UpdateEmployeeApiKey
