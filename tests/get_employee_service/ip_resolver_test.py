@@ -1,7 +1,8 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../get_employee_service/get_employee_lambda/src')))
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../../get_employee_service/get_employee_lambda/src')))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../commons/layers/shared/python')))
 
 from unittest.mock import patch, MagicMock
@@ -27,5 +28,6 @@ def test_get_host_ip_failure(mock_get):
 
     with pytest.raises(RetryError) as exc_info:
         ip_resolver.get_host_ip_with_retry()
-
-    assert "Connection failed" in str(exc_info.value.args[0])
+    # get the original exception from the RetryError
+    original_exception = exc_info.value.last_attempt.exception()
+    assert "Connection failed" in str(original_exception)
