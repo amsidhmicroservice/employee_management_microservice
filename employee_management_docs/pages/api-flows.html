@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management API - Flows & Documentation Hub</title>
+    
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/api-flows.css">
+
+    <!-- Enhanced Styling for Professional Look -->
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #06b6d4;
+            --accent-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-dark: #1e293b;
+            --bg-code: #0f172a;
+            
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --text-inverse: #ffffff;
+            
+            --border-color: #e2e8f0;
+            --border-light: #f1f5f9;
+            --border-dark: #cbd5e1;
+            
+            --shadow-small: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            --radius: 8px;
+            --radius-sm: 4px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            
+            --transition-fast: all 0.15s ease-in-out;
+            --transition-medium: all 0.3s ease-in-out;
+            --transition-slow: all 0.5s ease-in-out;
+            
+            --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+        }
+
+        /* Navigation Styling */
+        .main-nav {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #334155 100%);
+            box-shadow: var(--shadow-medium);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-inverse);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .nav-brand i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-inverse);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            background: var(--primary-color);
+            color: var(--text-inverse);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 4rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        /* Hub Cards Grid */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hub-card {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-medium);
+            box-shadow: var(--shadow-small);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.5rem;
+        }
+
+        .hub-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: var(--transition-medium);
+        }
+
+        .hub-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .hub-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-large);
+            border-color: var(--primary-color);
+        }
+
+        .hub-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .hub-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .hub-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .hub-card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .feature-tag {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+            color: var(--text-inverse);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius);
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-small);
+        }
+
+        .hub-card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--bg-secondary);
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-small);
+            transition: var(--transition-medium);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+        }
+
+        /* Information Section */
+        .info-section {
+            padding: 4rem 0;
+        }
+
+        .info-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .info-content {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow-small);
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .info-content h3 i {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+        }
+
+        .info-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .hub-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .hub-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-container {
+                padding: 0 1rem;
+            }
+
+            .hub-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .hub-card i {
+                font-size: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-users-cog"></i>
+                <span>Employee Management API</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="api-flows.html" class="nav-link active">
+                    <i class="fas fa-sitemap"></i>
+                    API Flows
+                </a>
+                <a href="project-structure.html" class="nav-link">
+                    <i class="fas fa-folder-tree"></i>
+                    Structure
+                </a>
+                <a href="architecture.html" class="nav-link">
+                    <i class="fas fa-cubes"></i>
+                    Architecture
+                </a>
+                <a href="roadmap.html" class="nav-link">
+                    <i class="fas fa-road"></i>
+                    Roadmap
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>API Flows & Documentation Hub</h1>
+                <p>Comprehensive documentation for Employee Management System APIs. Choose your preferred view to explore sequence flows, system diagrams, API reference, and navigation tools designed for seamless integration and stakeholder presentation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">API Endpoints</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Sequence Diagrams</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">System Views</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Documentation Coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="hub-grid">
+            <!-- Overview Card -->
+            <a href="api-flows/index.html" class="hub-card">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>Complete Overview</h3>
+                <p>Main dashboard with quick stats, navigation cards, and comprehensive overview of all API documentation sections.</p>
+                <div class="hub-card-features">
+                    <span class="feature-tag">Dashboard</span>
+                    <span class="feature-tag">Quick Stats</span>
+                    <span class="feature-tag">Navigation</span>
+                    <span class="feature-tag">Overview</span>
+                </div>
+                <span class="hub-card-action">
+                    View Overview <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <!-- Sequence Flows Card -->
+            <a href="api-flows/sequence-flows.html" class="hub-card">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Sequence Flows</h3>
+                <p>Interactive sequence diagrams showing the complete flow for all 5 API operations with detailed process explanations and Mermaid code.</p>
+                <div class="hub-card-features">
+                    <span class="feature-tag">Create</span>
+                    <span class="feature-tag">Read</span>
+                    <span class="feature-tag">Update</span>
+                    <span class="feature-tag">Delete</span>
+                    <span class="feature-tag">List</span>
+                </div>
+                <span class="hub-card-action">
+                    View Flows <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <!-- System Diagrams Card -->
+            <a href="api-flows/system-diagrams.html" class="hub-card">
+                <i class="fas fa-sitemap"></i>
+                <h3>System Diagrams</h3>
+                <p>High-level system architecture diagrams including data flow, component interactions, class relationships, and AWS infrastructure views.</p>
+                <div class="hub-card-features">
+                    <span class="feature-tag">Data Flow</span>
+                    <span class="feature-tag">Components</span>
+                    <span class="feature-tag">Classes</span>
+                    <span class="feature-tag">Architecture</span>
+                </div>
+                <span class="hub-card-action">
+                    View Diagrams <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <!-- API Documentation Card -->
+            <a href="api-flows/api-documentation.html" class="hub-card">
+                <i class="fas fa-book"></i>
+                <h3>API Reference</h3>
+                <p>Complete API documentation with request/response schemas, error codes, validation rules, and practical code examples for all endpoints.</p>
+                <div class="hub-card-features">
+                    <span class="feature-tag">Schemas</span>
+                    <span class="feature-tag">Examples</span>
+                    <span class="feature-tag">Errors</span>
+                    <span class="feature-tag">Validation</span>
+                </div>
+                <span class="hub-card-action">
+                    View Documentation <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <!-- Quick Navigation Card -->
+            <a href="api-flows/navigation.html" class="hub-card">
+                <i class="fas fa-compass"></i>
+                <h3>Quick Navigation</h3>
+                <p>Fast navigation to specific endpoints, quick reference cards, HTTP status codes, and shortcuts for efficient documentation browsing.</p>
+                <div class="hub-card-features">
+                    <span class="feature-tag">Quick Ref</span>
+                    <span class="feature-tag">Shortcuts</span>
+                    <span class="feature-tag">Status Codes</span>
+                    <span class="feature-tag">Search</span>
+                </div>
+                <span class="hub-card-action">
+                    Quick Access <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <!-- Legacy Complete View Card -->
+            <a href="#" onclick="showLegacyWarning(); return false;" class="hub-card" style="opacity: 0.7;">
+                <i class="fas fa-file-alt"></i>
+                <h3>Single Page View</h3>
+                <p>Traditional single-page documentation view with all content in one place. Recommended only for printing or offline viewing.</p>
+                <div class="hub-card-features">
+                    <span class="feature-tag">Complete</span>
+                    <span class="feature-tag">Printable</span>
+                    <span class="feature-tag">Offline</span>
+                    <span class="feature-tag">Legacy</span>
+                </div>
+                <span class="hub-card-action">
+                    Legacy View <i class="fas fa-external-link-alt"></i>
+                </span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="info-container">
+            <div class="info-content">
+                <h3>
+                    <i class="fas fa-info-circle"></i>
+                    About This Documentation
+                </h3>
+                <p>
+                    This documentation hub provides comprehensive coverage of the Employee Management System APIs, 
+                    designed for stakeholders, developers, and technical teams. The documentation is split into 
+                    focused sections for better performance and user experience. All diagrams are interactive 
+                    and include downloadable PlantUML/Mermaid code for integration into your own documentation systems.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Show legacy warning
+        function showLegacyWarning() {
+            const message = `The single-page view contains all content in one large file and may take longer to load.\n\nFor better performance, we recommend using the focused sections above.\n\nDo you want to continue to the complete single-page view?`;
+            
+            if (confirm(message)) {
+                // You can create a legacy.html file with the original content if needed
+                alert('Legacy single-page view is not currently available.\n\nPlease use the focused sections for the best experience.');
+            }
+        }
+
+        // Add smooth hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Employee Management API Documentation Hub loaded');
+            
+            // Add entrance animations
+            const cards = document.querySelectorAll('.hub-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease-out';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100 + 200);
+            });
+
+            // Add stats animation
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                const isPercentage = stat.textContent.includes('%');
+                let current = 0;
+                const increment = target / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        stat.textContent = isPercentage ? '100%' : target;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = isPercentage ? Math.floor(current) + '%' : Math.floor(current);
+                    }
+                }, 40);
+            });
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key >= '1' && e.key <= '5') {
+                const cardIndex = parseInt(e.key) - 1;
+                const cards = document.querySelectorAll('.hub-card');
+                if (cards[cardIndex]) {
+                    cards[cardIndex].click();
+                }
+            }
+        });
+
+        // Add accessibility improvements
+        document.querySelectorAll('.hub-card').forEach(card => {
+            card.addEventListener('focus', function() {
+                this.style.transform = 'translateY(-8px)';
+                this.style.boxShadow = 'var(--shadow-large)';
+            });
+            
+            card.addEventListener('blur', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
+    </script>
+</body>
+</html>

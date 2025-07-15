@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Sequence Flows - Employee Management System</title>
+
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/api-flows.css">
+
+    <!-- Enhanced Styling -->
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #06b6d4;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --bg-primary: #0a0e27;
+            --bg-secondary: #1a1f3a;
+            --bg-tertiary: #2a3441;
+            --bg-dark: #020617;
+            --bg-code: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #475569;
+            --border-light: #64748b;
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-sm: 6px;
+            --radius-full: 9999px;
+            --shadow-small: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.3);
+            --transition-fast: all 0.2s ease;
+            --transition-medium: all 0.3s ease;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-dark) 100%);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(79, 70, 229, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(1deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(-1deg);
+            }
+        }
+
+        /* Enhanced Navigation */
+        .api-flows-nav {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .nav-brand i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 0.625rem 1.25rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--primary-color);
+            border-color: var(--primary-hover);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            min-height: calc(100vh - 80px);
+        }
+
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-radius: var(--radius-lg);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(79, 70, 229, 0.1) 60deg, transparent 120deg);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(79, 70, 229, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Enhanced Flow Navigation */
+        .flow-navigation {
+            margin-bottom: 3rem;
+        }
+
+        .flow-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .flow-nav-btn {
+            background: var(--bg-card);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-small);
+        }
+
+        .flow-nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .flow-nav-btn:hover::before,
+        .flow-nav-btn.active::before {
+            transform: scaleX(1);
+        }
+
+        .flow-nav-btn i {
+            font-size: 2rem;
+            transition: var(--transition-fast);
+        }
+
+        .flow-nav-btn:hover,
+        .flow-nav-btn.active {
+            background: rgba(79, 70, 229, 0.15);
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow), var(--shadow-medium);
+        }
+
+        .flow-nav-btn:hover i,
+        .flow-nav-btn.active i {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Flow Containers */
+        .flows-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-large);
+            overflow: hidden;
+        }
+
+        .flow-container {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .flow-container.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .flow-header {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .flow-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .flow-controls {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .flow-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-small);
+        }
+
+        .flow-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .flow-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Enhanced Mermaid Diagrams */
+        .flow-content {
+            padding: 2rem;
+            background: var(--bg-code);
+            border-radius: var(--radius);
+            margin: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flow-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--success-color));
+        }
+
+        .flow-content .mermaid {
+            background: var(--bg-primary) !important;
+            border-radius: var(--radius-sm);
+            padding: 2rem !important;
+            border: 2px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: var(--shadow-medium) !important;
+            margin: 0 !important;
+            overflow: visible !important;
+        }
+
+        /* Enhanced Process Steps */
+        .flow-description {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .flow-description h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .flow-description h4::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            transition: var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .step-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .step-item:hover {
+            background: rgba(79, 70, 229, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .step-item i {
+            font-size: 1.5rem;
+            color: var(--success-color);
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .step-item strong {
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .step-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .flow-nav-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .nav-container {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .flow-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .flow-content,
+            .flow-description {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Enhanced Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--success-color), #0d9488);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-large);
+            z-index: 10000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateX(100%);
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Enhanced Expanded View */
+        .flow-content.expanded {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 9999 !important;
+            background: var(--bg-dark) !important;
+            border: none !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .close-btn {
+            background: var(--error-color) !important;
+            position: fixed !important;
+            top: 1rem !important;
+            right: 1rem !important;
+            z-index: 10000 !important;
+            border-radius: var(--radius-full) !important;
+            width: 50px !important;
+            height: 50px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 1.25rem !important;
+            box-shadow: var(--shadow-large) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="api-flows-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                Sequence Flows
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Overview</a>
+                <a href="sequence-flows.html" class="nav-link active">Sequence Flows</a>
+                <a href="system-diagrams.html" class="nav-link">System Diagrams</a>
+                <a href="api-documentation.html" class="nav-link">API Reference</a>
+                <a href="navigation.html" class="nav-link">Quick Access</a>
+                <a href="../architecture.html" class="nav-link">Architecture</a>
+                <a href="../../index.html" class="nav-link">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <h1>🔄 API Sequence Flows</h1>
+                        <p>Interactive sequence diagrams showing the complete flow for all Employee Management API
+                            operations with enhanced visibility and modern design</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flow Navigation -->
+            <section class="flow-navigation">
+                <div class="flow-nav-grid">
+                    <button class="flow-nav-btn active" data-flow="create" onclick="showFlow('create-flow')">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Create Employee</span>
+                    </button>
+                    <button class="flow-nav-btn" data-flow="get-single" onclick="showFlow('get-single-flow')">
+                        <i class="fas fa-user"></i>
+                        <span>Get Single</span>
+                    </button>
+                    <button class="flow-nav-btn" data-flow="get-all" onclick="showFlow('get-all-flow')">
+                        <i class="fas fa-users"></i>
+                        <span>Get All</span>
+                    </button>
+                    <button class="flow-nav-btn" data-flow="update" onclick="showFlow('update-flow')">
+                        <i class="fas fa-edit"></i>
+                        <span>Update Employee</span>
+                    </button>
+                    <button class="flow-nav-btn" data-flow="delete" onclick="showFlow('delete-flow')">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>Delete Employee</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Flow Containers -->
+            <section class="flows-section">
+                <!-- Create Employee Flow -->
+                <div id="create-flow" class="flow-container active">
+                    <div class="flow-header">
+                        <h3>
+                            <i class="fas fa-plus-circle" style="color: var(--success-color);"></i>
+                            Create Employee Flow
+                        </h3>
+                        <div class="flow-controls">
+                            <button class="flow-btn" onclick="expandFlow('create-flow-content')">
+                                <i class="fas fa-expand"></i>
+                                Expand
+                            </button>
+                            <button class="flow-btn" onclick="copyFlowCode('create-flow-content')">
+                                <i class="fas fa-copy"></i>
+                                Copy Code
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flow-content" id="create-flow-content">
+                        <pre class="mermaid">
+sequenceDiagram
+    participant C as 👤 Client
+    participant AG as 🌐 API Gateway
+    participant L as ⚡ Lambda Function
+    participant V as ✅ Validator
+    participant DB as 🗄️ DynamoDB
+    
+    Note over C,DB: 🚀 POST /employees - Create New Employee
+    
+    C->>+AG: 📤 POST /employees
+    Note right of C: 🔑 x-api-key: {api-key}<br/>📋 Content-Type: application/json<br/>📦 Body: employee data
+    
+    AG->>AG: 🔐 Validate API Key
+    AG->>AG: 🚦 Check Rate Limits
+    
+    alt ❌ API Key Invalid
+        AG-->>C: 🚫 401 Unauthorized
+    else ✅ Valid Request
+        AG->>+L: ➡️ Forward Request
+        L->>L: 📖 Parse Request Body
+        
+        L->>+V: 🔍 Validate Employee Data
+        Note right of V: ✔️ Check required fields<br/>📧 Validate email format<br/>🔢 Check data types
+        
+        alt ❌ Validation Failed
+            V-->>L: ⚠️ Validation Errors
+            L-->>AG: 🚫 400 Bad Request
+            AG-->>C: ❌ 400 Bad Request
+        else ✅ Validation Passed
+            V-->>-L: ✅ Validation Success
+            
+            L->>L: 🆔 Generate Employee ID
+            L->>L: ⏰ Add Timestamps
+            
+            L->>+DB: 💾 PutItem Operation
+            Note right of DB: 📝 Store employee record<br/>🔢 with generated ID
+            
+            alt ❌ Database Error
+                DB-->>L: 💥 Write Error
+                L-->>AG: 🚫 500 Internal Server Error
+                AG-->>C: ❌ 500 Internal Server Error
+            else ✅ Success
+                DB-->>-L: ✅ Item Created
+                L->>L: 🎨 Format Response
+                L-->>-AG: 🎉 201 Created
+                AG-->>-C: ✅ Employee Created
+                Note right of AG: 📋 Response includes<br/>🆔 employee ID and data
+            end
+        end
+    end
+                        </pre>
+                    </div>
+
+                    <div class="flow-description">
+                        <h4>🔄 Create Employee Process</h4>
+                        <div class="process-steps">
+                            <div class="step-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>📋 Data Validation</strong>
+                                    <p>Comprehensive validation of all required fields, email format, and data types
+                                        with detailed error reporting</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-key"></i>
+                                <div>
+                                    <strong>🆔 ID Generation</strong>
+                                    <p>Automatic generation of unique employee ID using timestamp and randomization for
+                                        guaranteed uniqueness</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-database"></i>
+                                <div>
+                                    <strong>💾 Database Storage</strong>
+                                    <p>Atomic write operation to DynamoDB with automatic timestamp management and error
+                                        handling</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get Single Employee Flow -->
+                <div id="get-single-flow" class="flow-container">
+                    <div class="flow-header">
+                        <h3>
+                            <i class="fas fa-search" style="color: var(--secondary-color);"></i>
+                            Get Single Employee Flow
+                        </h3>
+                        <div class="flow-controls">
+                            <button class="flow-btn" onclick="expandFlow('get-single-flow-content')">
+                                <i class="fas fa-expand"></i>
+                                Expand
+                            </button>
+                            <button class="flow-btn" onclick="copyFlowCode('get-single-flow-content')">
+                                <i class="fas fa-copy"></i>
+                                Copy Code
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flow-content" id="get-single-flow-content">
+                        <pre class="mermaid">
+sequenceDiagram
+    participant C as 👤 Client
+    participant AG as 🌐 API Gateway
+    participant L as ⚡ Lambda Function
+    participant DB as 🗄️ DynamoDB
+    
+    Note over C,DB: 🔍 GET /employees/{id} - Retrieve Single Employee
+    
+    C->>+AG: 📤 GET /employees/{employee_id}
+    Note right of C: 🔑 x-api-key: {api-key}<br/>🆔 employee_id in path
+    
+    AG->>AG: 🔐 Validate API Key
+    AG->>AG: 🚦 Check Rate Limits
+    
+    alt ❌ API Key Invalid
+        AG-->>C: 🚫 401 Unauthorized
+    else ✅ Valid Request
+        AG->>+L: ➡️ Forward Request
+        L->>L: 🔍 Extract Employee ID
+        L->>+DB: 📖 GetItem Operation
+        
+        alt ❌ Employee Not Found
+            DB-->>L: 🚫 Item Not Found
+            L-->>AG: 🔍 404 Not Found
+            AG-->>C: ❌ 404 Not Found
+        else ✅ Employee Found
+            DB-->>-L: 📋 Employee Data
+            L->>L: 🎨 Format Response
+            L-->>-AG: ✅ 200 OK
+            AG-->>-C: 📄 Employee Response
+            Note right of AG: 📋 Complete employee<br/>🔢 data with metadata
+        end
+    end
+                        </pre>
+                    </div>
+
+                    <div class="flow-description">
+                        <h4>🔍 Get Single Employee Process</h4>
+                        <div class="process-steps">
+                            <div class="step-item">
+                                <i class="fas fa-key"></i>
+                                <div>
+                                    <strong>🆔 ID Validation</strong>
+                                    <p>System validates the employee ID format and extracts from path parameters with
+                                        format checking</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-database"></i>
+                                <div>
+                                    <strong>🗄️ Database Lookup</strong>
+                                    <p>Direct GetItem operation using employee_id as primary key for optimal performance
+                                        and consistency</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-reply"></i>
+                                <div>
+                                    <strong>📄 Response Formatting</strong>
+                                    <p>Data is formatted and returned with metadata and processing information for
+                                        client consumption</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Get All Employees Flow -->
+                <div id="get-all-flow" class="flow-container">
+                    <div class="flow-header">
+                        <h3>
+                            <i class="fas fa-list" style="color: var(--accent-color);"></i>
+                            Get All Employees Flow
+                        </h3>
+                        <div class="flow-controls">
+                            <button class="flow-btn" onclick="expandFlow('get-all-flow-content')">
+                                <i class="fas fa-expand"></i>
+                                Expand
+                            </button>
+                            <button class="flow-btn" onclick="copyFlowCode('get-all-flow-content')">
+                                <i class="fas fa-copy"></i>
+                                Copy Code
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flow-content" id="get-all-flow-content">
+                        <pre class="mermaid">
+sequenceDiagram
+    participant C as 👤 Client
+    participant AG as 🌐 API Gateway
+    participant L as ⚡ Lambda Function
+    participant DB as 🗄️ DynamoDB
+    
+    Note over C,DB: 📋 GET /employees - Retrieve All Employees
+    
+    C->>+AG: 📤 GET /employees
+    Note right of C: 🔑 x-api-key: {api-key}<br/>❓ Query: ?limit=50&active_only=true<br/>📄 &page=1&sort=name
+    
+    AG->>AG: 🔐 Validate API Key
+    AG->>AG: 🚦 Check Rate Limits
+    
+    alt ❌ API Key Invalid
+        AG-->>C: 🚫 401 Unauthorized
+    else ✅ Valid Request
+        AG->>+L: ➡️ Forward Request
+        L->>L: 🔧 Parse Query Parameters
+        L->>L: 🏗️ Build Scan Parameters
+        L->>+DB: 🔍 Scan Employee Table
+        
+        DB-->>-L: 📊 Employee Records
+        L->>L: ⚙️ Process Results
+        L->>L: 📄 Apply Pagination
+        L->>L: 🎨 Format Response
+        L-->>-AG: ✅ 200 OK
+        AG-->>-C: 📋 Employees List
+        Note right of AG: 📊 Paginated list with<br/>🔢 total count & metadata
+    end
+                        </pre>
+                    </div>
+
+                    <div class="flow-description">
+                        <h4>📋 Get All Employees Process</h4>
+                        <div class="process-steps">
+                            <div class="step-item">
+                                <i class="fas fa-filter"></i>
+                                <div>
+                                    <strong>🔧 Query Processing</strong>
+                                    <p>Parse and validate query parameters for filtering, sorting, and pagination with
+                                        comprehensive options</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-search"></i>
+                                <div>
+                                    <strong>🔍 Database Scan</strong>
+                                    <p>Execute DynamoDB Scan operation with filter expressions for efficient data
+                                        retrieval and performance</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-list"></i>
+                                <div>
+                                    <strong>📊 Response Assembly</strong>
+                                    <p>Structure response with employee array, count, and pagination information for
+                                        optimal client experience</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Update Employee Flow -->
+                <div id="update-flow" class="flow-container">
+                    <div class="flow-header">
+                        <h3>
+                            <i class="fas fa-edit" style="color: var(--warning-color);"></i>
+                            Update Employee Flow
+                        </h3>
+                        <div class="flow-controls">
+                            <button class="flow-btn" onclick="expandFlow('update-flow-content')">
+                                <i class="fas fa-expand"></i>
+                                Expand
+                            </button>
+                            <button class="flow-btn" onclick="copyFlowCode('update-flow-content')">
+                                <i class="fas fa-copy"></i>
+                                Copy Code
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flow-content" id="update-flow-content">
+                        <pre class="mermaid">
+sequenceDiagram
+    participant C as 👤 Client
+    participant AG as 🌐 API Gateway
+    participant L as ⚡ Lambda Function
+    participant V as ✅ Validator
+    participant DB as 🗄️ DynamoDB
+    
+    Note over C,DB: ✏️ PUT /employees/{id} - Update Employee
+    
+    C->>+AG: 📤 PUT /employees/{employee_id}
+    Note right of C: 🔑 x-api-key: {api-key}<br/>📋 Content-Type: application/json<br/>📦 Body: updated fields
+    
+    AG->>AG: 🔐 Validate API Key
+    AG->>AG: 🚦 Check Rate Limits
+    
+    alt ❌ API Key Invalid
+        AG-->>C: 🚫 401 Unauthorized
+    else ✅ Valid Request
+        AG->>+L: ➡️ Forward Request
+        L->>L: 🔍 Extract Employee ID
+        L->>L: 📖 Parse Request Body
+        
+        L->>+DB: 👀 Check Employee Exists
+        
+        alt ❌ Employee Not Found
+            DB-->>L: 🚫 Item Not Found
+            L-->>AG: 🔍 404 Not Found
+            AG-->>C: ❌ 404 Not Found
+        else ✅ Employee Found
+            DB-->>-L: 📋 Current Employee Data
+            
+            L->>+V: ✔️ Validate Update Data
+            
+            alt ❌ Validation Failed
+                V-->>L: ⚠️ Validation Errors
+                L-->>AG: 🚫 400 Bad Request
+                AG-->>C: ❌ 400 Bad Request
+            else ✅ Validation Passed
+                V-->>-L: ✅ Validation Success
+                
+                L->>L: 🔧 Build Update Expression
+                L->>+DB: 💾 Update Employee Record
+                
+                alt ❌ Update Failed
+                    DB-->>L: 💥 Update Error
+                    L-->>AG: 🚫 500 Internal Server Error
+                    AG-->>C: ❌ 500 Internal Server Error
+                else ✅ Update Success
+                    DB-->>-L: 📋 Updated Employee Data
+                    L->>L: 🎨 Format Response
+                    L-->>-AG: ✅ 200 OK
+                    AG-->>-C: 🎉 Updated Employee
+                end
+            end
+        end
+    end
+                        </pre>
+                    </div>
+
+                    <div class="flow-description">
+                        <h4>✏️ Update Employee Process</h4>
+                        <div class="process-steps">
+                            <div class="step-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>👀 Existence Verification</strong>
+                                    <p>Verify employee exists before attempting update operation with comprehensive
+                                        existence checking</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-edit"></i>
+                                <div>
+                                    <strong>✔️ Partial Validation</strong>
+                                    <p>Validate only the fields being updated, supporting partial updates with flexible
+                                        validation rules</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-save"></i>
+                                <div>
+                                    <strong>💾 Atomic Update</strong>
+                                    <p>Perform atomic update operation with automatic timestamp management and data
+                                        integrity</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Employee Flow -->
+                <div id="delete-flow" class="flow-container">
+                    <div class="flow-header">
+                        <h3>
+                            <i class="fas fa-trash-alt" style="color: var(--error-color);"></i>
+                            Delete Employee Flow
+                        </h3>
+                        <div class="flow-controls">
+                            <button class="flow-btn" onclick="expandFlow('delete-flow-content')">
+                                <i class="fas fa-expand"></i>
+                                Expand
+                            </button>
+                            <button class="flow-btn" onclick="copyFlowCode('delete-flow-content')">
+                                <i class="fas fa-copy"></i>
+                                Copy Code
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flow-content" id="delete-flow-content">
+                        <pre class="mermaid">
+sequenceDiagram
+    participant C as 👤 Client
+    participant AG as 🌐 API Gateway
+    participant L as ⚡ Lambda Function
+    participant DB as 🗄️ DynamoDB
+    
+    Note over C,DB: 🗑️ DELETE /employees/{id} - Delete Employee
+    
+    C->>+AG: 📤 DELETE /employees/{employee_id}
+    Note right of C: 🔑 x-api-key: {api-key}<br/>🆔 employee_id in path
+    
+    AG->>AG: 🔐 Validate API Key
+    AG->>AG: 🚦 Check Rate Limits
+    
+    alt ❌ API Key Invalid
+        AG-->>C: 🚫 401 Unauthorized
+    else ✅ Valid Request
+        AG->>+L: ➡️ Forward Request
+        L->>L: 🔍 Extract Employee ID
+        
+        L->>+DB: 👀 Check Employee Exists
+        
+        alt ❌ Employee Not Found
+            DB-->>L: 🚫 Item Not Found
+            L-->>AG: 🔍 404 Not Found
+            AG-->>C: ❌ 404 Not Found
+        else ⚠️ Employee Already Deleted
+            DB-->>L: 📋 Employee Found (is_active = false)
+            L-->>AG: ⚠️ 409 Conflict
+            AG-->>C: ❌ 409 Conflict
+        else ✅ Employee Active
+            DB-->>-L: 📋 Employee Data (is_active = true)
+            
+            L->>L: 🛡️ Prepare Soft Delete
+            L->>+DB: 💾 Update Employee Record
+            
+            alt ❌ Update Failed
+                DB-->>L: 💥 Update Error
+                L-->>AG: 🚫 500 Internal Server Error
+                AG-->>C: ❌ 500 Internal Server Error
+            else ✅ Delete Success
+                DB-->>-L: ✅ Update Confirmation
+                L->>L: 📝 Log Deletion Event
+                L-->>-AG: ✅ 204 No Content
+                AG-->>-C: 🎉 204 No Content
+            end
+        end
+    end
+                        </pre>
+                    </div>
+
+                    <div class="flow-description">
+                        <h4>🗑️ Delete Employee Process</h4>
+                        <div class="process-steps">
+                            <div class="step-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <strong>🛡️ Soft Delete Strategy</strong>
+                                    <p>Preserves employee data by setting is_active=false instead of physical deletion
+                                        for data integrity</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-history"></i>
+                                <div>
+                                    <strong>📝 Audit Trail</strong>
+                                    <p>Maintains complete audit history with deleted_at timestamp for compliance and
+                                        regulatory requirements</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <i class="fas fa-database"></i>
+                                <div>
+                                    <strong>💾 Data Preservation</strong>
+                                    <p>Employee data remains in database for future reference and reporting with
+                                        complete history preservation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Enhanced Mermaid initialization with better visibility
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: 'dark',
+                    securityLevel: 'loose',
+                    themeVariables: {
+                        primaryColor: '#4f46e5',
+                        primaryTextColor: '#f8fafc',
+                        primaryBorderColor: '#6366f1',
+                        lineColor: '#94a3b8',
+                        secondaryColor: '#1e293b',
+                        tertiaryColor: '#334155',
+                        background: '#0f172a',
+                        mainBkg: '#1e293b',
+                        secondBkg: '#334155',
+                        tertiaryBkg: '#475569',
+                        noteTextColor: '#f8fafc',
+                        noteBkgColor: '#4f46e5',
+                        noteBorderColor: '#6366f1',
+                        activationBkgColor: '#06b6d4',
+                        activationBorderColor: '#0891b2',
+                        sequenceNumberColor: '#f8fafc',
+                        sectionBkgColor: '#1e293b',
+                        altSectionBkgColor: '#334155',
+                        gridColor: '#475569',
+                        loopTextColor: '#f8fafc',
+                        labelBoxBkgColor: '#4f46e5',
+                        labelBoxBorderColor: '#6366f1',
+                        labelTextColor: '#f8fafc',
+                        actorBkg: '#1e293b',
+                        actorBorder: '#6366f1',
+                        actorTextColor: '#f8fafc',
+                        actorLineColor: '#94a3b8',
+                        signalColor: '#f8fafc',
+                        signalTextColor: '#f8fafc',
+                        c0: '#4f46e5',
+                        c1: '#06b6d4',
+                        c2: '#10b981',
+                        c3: '#f59e0b',
+                        c4: '#ef4444'
+                    },
+                    sequence: {
+                        actorMargin: 50,
+                        width: 150,
+                        height: 65,
+                        boxMargin: 10,
+                        boxTextMargin: 5,
+                        noteMargin: 10,
+                        messageMargin: 35,
+                        mirrorActors: true,
+                        bottomMarginAdj: 1,
+                        useMaxWidth: true,
+                        rightAngles: false,
+                        showSequenceNumbers: true
+                    }
+                });
+            }
+
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+
+        // Enhanced flow navigation with animations
+        function showFlow(flowId) {
+            // Hide all flows with fade out
+            document.querySelectorAll('.flow-container').forEach(flow => {
+                if (flow.classList.contains('active')) {
+                    flow.style.opacity = '0';
+                    flow.style.transform = 'translateY(-20px)';
+                    setTimeout(() => {
+                        flow.classList.remove('active');
+                    }, 150);
+                }
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.flow-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected flow with fade in
+            setTimeout(() => {
+                const targetFlow = document.getElementById(flowId);
+                if (targetFlow) {
+                    targetFlow.classList.add('active');
+                    targetFlow.style.opacity = '0';
+                    targetFlow.style.transform = 'translateY(20px)';
+
+                    setTimeout(() => {
+                        targetFlow.style.opacity = '1';
+                        targetFlow.style.transform = 'translateY(0)';
+                    }, 50);
+                }
+
+                // Add active class to clicked button
+                const flowName = flowId.replace('-flow', '');
+                const activeButton = document.querySelector(`[data-flow="${flowName}"]`);
+                if (activeButton) {
+                    activeButton.classList.add('active');
+                }
+
+                // Re-render Mermaid for new content
+                setTimeout(() => {
+                    if (typeof mermaid !== 'undefined' && targetFlow) {
+                        const flowDiagrams = targetFlow.querySelectorAll('.mermaid');
+                        mermaid.init(undefined, flowDiagrams);
+                    }
+                }, 300);
+            }, 200);
+        }
+
+        // Enhanced expand flow functionality
+        function expandFlow(flowContentId) {
+            const content = document.getElementById(flowContentId);
+            if (content) {
+                content.classList.toggle('expanded');
+
+                if (content.classList.contains('expanded')) {
+                    const closeBtn = document.createElement('button');
+                    closeBtn.innerHTML = '<i class="fas fa-times"></i> Close';
+                    closeBtn.className = 'flow-btn close-btn';
+                    closeBtn.onclick = () => expandFlow(flowContentId);
+                    content.appendChild(closeBtn);
+
+                    // Disable body scroll
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    const closeBtn = content.querySelector('.close-btn');
+                    if (closeBtn) closeBtn.remove();
+
+                    // Re-enable body scroll
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Enhanced copy code functionality
+        function copyFlowCode(codeId) {
+            const flowContent = document.getElementById(codeId);
+            if (flowContent) {
+                const mermaidElement = flowContent.querySelector('.mermaid');
+                if (mermaidElement) {
+                    const text = mermaidElement.textContent || mermaidElement.innerText;
+                    copyToClipboard(text.trim());
+                }
+            }
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('🎉 Diagram code copied to clipboard!', 'success');
+                });
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('🎉 Diagram code copied to clipboard!', 'success');
+            }
+        }
+
+        // Enhanced notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            notification.className = 'notification';
+            document.body.appendChild(notification);
+
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const expandedContent = document.querySelector('.flow-content.expanded');
+                if (expandedContent) {
+                    expandFlow(expandedContent.id);
+                }
+            }
+
+            // Arrow key navigation for flows
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                const buttons = Array.from(document.querySelectorAll('.flow-nav-btn'));
+                const activeIndex = buttons.findIndex(btn => btn.classList.contains('active'));
+
+                if (activeIndex !== -1) {
+                    e.preventDefault();
+                    let newIndex;
+
+                    if (e.key === 'ArrowLeft') {
+                        newIndex = activeIndex > 0 ? activeIndex - 1 : buttons.length - 1;
+                    } else {
+                        newIndex = activeIndex < buttons.length - 1 ? activeIndex + 1 : 0;
+                    }
+
+                    const flowName = buttons[newIndex].dataset.flow;
+                    showFlow(flowName + '-flow');
+                }
+            }
+        });
+
+        // Add loading animation during diagram rendering
+        function showLoading(container) {
+            const loader = document.createElement('div');
+            loader.innerHTML = '<div class="loading"></div> Rendering diagram...';
+            loader.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: var(--text-secondary);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 500;
+            `;
+            container.appendChild(loader);
+
+            setTimeout(() => {
+                if (loader.parentNode) {
+                    loader.remove();
+                }
+            }, 2000);
+        }
+
+        // Initialize loading for mermaid diagrams
+        document.querySelectorAll('.mermaid').forEach(diagram => {
+            const container = diagram.parentElement;
+            if (container) {
+                container.style.position = 'relative';
+                showLoading(container);
+            }
+        });
+    </script>
+</body>
+
+</html>

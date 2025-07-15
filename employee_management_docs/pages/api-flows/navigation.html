@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Navigation - Employee Management System</title>
+    
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/api-flows.css">
+    
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #06b6d4;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-dark: #020617;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+            --radius: 8px;
+            --radius-lg: 16px;
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition-medium: all 0.3s ease;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .api-flows-nav {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition-medium);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .quick-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition-medium);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .quick-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--primary-color);
+        }
+        
+        .quick-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .quick-card-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .quick-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .quick-card-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .quick-card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .reference-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-medium);
+        }
+        
+        .reference-item:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--primary-color);
+        }
+        
+        .reference-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .reference-content h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .reference-content p {
+            margin: 0;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="api-flows-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-compass"></i>
+                Quick Navigation
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Overview</a>
+                <a href="sequence-flows.html" class="nav-link">Sequence Flows</a>
+                <a href="system-diagrams.html" class="nav-link">System Diagrams</a>
+                <a href="api-documentation.html" class="nav-link">API Reference</a>
+                <a href="navigation.html" class="nav-link active">Quick Access</a>
+                <a href="../architecture.html" class="nav-link">Architecture</a>
+                <a href="../../index.html" class="nav-link">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+            <!-- Hero Section -->
+            <section style="text-align: center; margin-bottom: 3rem;">
+                <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Quick Navigation & Reference
+                </h1>
+                <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Fast access to API endpoints, documentation sections, and reference materials
+                </p>
+            </section>
+
+            <!-- Quick Access Cards -->
+            <section>
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-primary);">
+                    Quick Access
+                </h2>
+                
+                <div class="quick-access-grid">
+                    <a href="sequence-flows.html" class="quick-card">
+                        <div class="quick-card-header">
+                            <i class="fas fa-project-diagram quick-card-icon"></i>
+                            <h3 class="quick-card-title">All Sequence Flows</h3>
+                        </div>
+                        <p class="quick-card-description">
+                            View all 5 API sequence diagrams in one place with interactive navigation
+                        </p>
+                        <span class="quick-card-action">
+                            View Flows <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+
+                    <a href="api-documentation.html" class="quick-card">
+                        <div class="quick-card-header">
+                            <i class="fas fa-book quick-card-icon"></i>
+                            <h3 class="quick-card-title">Complete API Docs</h3>
+                        </div>
+                        <p class="quick-card-description">
+                            Full API reference with schemas, examples, and error codes
+                        </p>
+                        <span class="quick-card-action">
+                            View Documentation <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+
+                    <a href="system-diagrams.html" class="quick-card">
+                        <div class="quick-card-header">
+                            <i class="fas fa-sitemap quick-card-icon"></i>
+                            <h3 class="quick-card-title">System Architecture</h3>
+                        </div>
+                        <p class="quick-card-description">
+                            Data flow, components, and system architecture diagrams
+                        </p>
+                        <span class="quick-card-action">
+                            View Diagrams <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+
+                    <a href="../architecture.html" class="quick-card">
+                        <div class="quick-card-header">
+                            <i class="fas fa-cogs quick-card-icon"></i>
+                            <h3 class="quick-card-title">Infrastructure</h3>
+                        </div>
+                        <p class="quick-card-description">
+                            AWS infrastructure, HLD, LLD, and component diagrams
+                        </p>
+                        <span class="quick-card-action">
+                            View Architecture <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- API Quick Reference -->
+            <section style="margin-top: 4rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-primary);">
+                    API Quick Reference
+                </h2>
+                
+                <div class="reference-grid">
+                    <a href="api-documentation.html#create-employee" class="reference-item">
+                        <i class="fas fa-plus-circle reference-icon"></i>
+                        <div class="reference-content">
+                            <h4>POST /employees</h4>
+                            <p>Create new employee record</p>
+                        </div>
+                    </a>
+
+                    <a href="api-documentation.html#get-single-employee" class="reference-item">
+                        <i class="fas fa-user reference-icon"></i>
+                        <div class="reference-content">
+                            <h4>GET /employees/{id}</h4>
+                            <p>Get single employee by ID</p>
+                        </div>
+                    </a>
+
+                    <a href="api-documentation.html#get-all-employees" class="reference-item">
+                        <i class="fas fa-users reference-icon"></i>
+                        <div class="reference-content">
+                            <h4>GET /employees</h4>
+                            <p>List all employees</p>
+                        </div>
+                    </a>
+
+                    <a href="api-documentation.html#update-employee" class="reference-item">
+                        <i class="fas fa-edit reference-icon"></i>
+                        <div class="reference-content">
+                            <h4>PUT /employees/{id}</h4>
+                            <p>Update employee record</p>
+                        </div>
+                    </a>
+
+                    <a href="api-documentation.html#delete-employee" class="reference-item">
+                        <i class="fas fa-trash-alt reference-icon"></i>
+                        <div class="reference-content">
+                            <h4>DELETE /employees/{id}</h4>
+                            <p>Delete employee (soft delete)</p>
+                        </div>
+                    </a>
+
+                    <a href="api-documentation.html#error-codes" class="reference-item">
+                        <i class="fas fa-exclamation-triangle reference-icon"></i>
+                        <div class="reference-content">
+                            <h4>Error Codes</h4>
+                            <p>Complete error reference</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Status Codes Quick Reference -->
+            <section style="margin-top: 3rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-primary);">
+                    HTTP Status Codes
+                </h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--success-color);">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--success-color);">200 OK</h4>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Successful GET, PUT</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--success-color);">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--success-color);">201 Created</h4>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Successful POST</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--success-color);">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--success-color);">204 No Content</h4>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Successful DELETE</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--error-color);">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--error-color);">400 Bad Request</h4>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Validation failed</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--error-color);">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--error-color);">401 Unauthorized</h4>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Invalid API key</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius); border-left: 4px solid var(--error-color);">
+                        <h4 style="margin: 0 0 0.5rem 0; color: var(--error-color);">404 Not Found</h4>
+                        <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">Employee not exists</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

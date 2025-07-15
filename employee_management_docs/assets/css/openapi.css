@@ -1,0 +1,413 @@
+/* OpenAPI Documentation Styles */
+
+.openapi-section {
+    margin: 4rem 0;
+}
+
+.openapi-container {
+    display: grid;
+    gap: 2rem;
+}
+
+.openapi-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-medium);
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+}
+
+.overview-card .card-header,
+.auth-card .card-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--purple-color) 100%);
+    color: var(--text-inverse);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-icon {
+    width: 3rem;
+    height: 3rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.card-title h3 {
+    margin-bottom: 0.25rem;
+    font-size: 1.25rem;
+}
+
+.card-title p {
+    opacity: 0.9;
+    font-size: 0.875rem;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.api-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.info-value {
+    font-family: var(--font-mono);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.auth-details {
+    display: grid;
+    gap: 2rem;
+}
+
+.auth-method h4,
+.auth-security h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.security-list {
+    list-style: none;
+    padding: 0;
+}
+
+.security-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.security-list i {
+    color: var(--accent-color);
+}
+
+/* Endpoint Styles */
+.openapi-endpoints {
+    margin-top: 2rem;
+}
+
+.endpoints-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.endpoint-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-small);
+    border: 1px solid var(--border-light);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: var(--transition-medium);
+}
+
+.endpoint-card:hover {
+    box-shadow: var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.endpoint-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    gap: 1rem;
+}
+
+.endpoint-header:hover {
+    background: var(--bg-secondary);
+}
+
+.endpoint-method {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: white;
+    min-width: 70px;
+    text-align: center;
+}
+
+.endpoint-method.get { background: var(--accent-color); }
+.endpoint-method.post { background: var(--primary-color); }
+.endpoint-method.put { background: var(--warning-color); }
+.endpoint-method.delete { background: var(--error-color); }
+
+.endpoint-path {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--text-primary);
+    min-width: 200px;
+}
+
+.endpoint-description {
+    flex: 1;
+    color: var(--text-secondary);
+}
+
+.endpoint-toggle {
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+.endpoint-content {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.endpoint-content.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+.endpoint-details {
+    display: grid;
+    gap: 2rem;
+}
+
+.parameters-section h4,
+.request-section h4,
+.response-section h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.parameter-item {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.param-name {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-right: 1rem;
+}
+
+.param-type {
+    background: var(--bg-tertiary);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-right: 1rem;
+}
+
+.param-required {
+    background: var(--error-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.param-optional {
+    background: var(--text-muted);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.param-description {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.code-block {
+    background: var(--bg-dark);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.code-header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: var(--text-inverse);
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 1rem;
+    color: var(--text-inverse);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    overflow-x: auto;
+}
+
+.response-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.response-tab {
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.response-tab.active {
+    background: var(--primary-color);
+    color: var(--text-inverse);
+    border-color: var(--primary-color);
+}
+
+.response-tab:hover:not(.active) {
+    background: var(--bg-tertiary);
+}
+
+.response-content {
+    display: none;
+}
+
+.response-content.active {
+    display: block;
+}
+
+/* Interactive Links */
+.interactive-links {
+    margin-top: 3rem;
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.interactive-links h3 {
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.api-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: var(--transition-medium);
+    border: 1px solid var(--border-color);
+}
+
+.api-link:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.link-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    min-width: 2rem;
+}
+
+.link-content h4 {
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+    font-size: 1.125rem;
+}
+
+.link-content p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Animation keyframes */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design for OpenAPI */
+@media (max-width: 768px) {
+    .endpoint-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+
+    .endpoint-method {
+        align-self: flex-start;
+    }
+
+    .endpoint-path {
+        min-width: auto;
+        word-break: break-all;
+    }
+
+    .response-tabs {
+        flex-direction: column;
+    }
+
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .api-link {
+        flex-direction: column;
+        text-align: center;
+    }
+}

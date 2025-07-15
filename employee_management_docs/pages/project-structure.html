@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Structure - Employee Management System</title>
+
+    <!-- External Dependencies -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Split CSS Files -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/interactive.css">
+    <link rel="stylesheet" href="../assets/css/project-structure.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-sitemap"></i>
+                <span>Employee Management System</span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="architecture.html" class="nav-link">
+                    <i class="fas fa-building"></i> Architecture
+                </a>
+                <a href="api-flows.html" class="nav-link">
+                    <i class="fas fa-exchange-alt"></i> API Flows
+                </a>
+                <a href="project-structure.html" class="nav-link active">
+                    <i class="fas fa-folder-tree"></i> Project Structure
+                </a>
+                <a href="roadmap.html" class="nav-link">
+                    <i class="fas fa-road"></i> Roadmap
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section - Updated -->
+        <div class="hero-section-modern">
+            <div class="hero-content-modern">
+                <div class="hero-badge">
+                    <i class="fas fa-code-branch"></i>
+                    <span>Interactive Documentation</span>
+                </div>
+                <h1 class="hero-title-modern">
+                    Project Structure & API Explorer
+                </h1>
+                <p class="hero-subtitle-modern">
+                    Navigate through the complete codebase with interactive file tree, comprehensive API documentation,
+                    and live testing interface
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">45+</span>
+                        <span class="stat-label">Files</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">API Endpoints</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Test Coverage</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <div class="card-header">
+                        <div class="card-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="card-title">employee_handler.py</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="code-line">
+                            <span class="line-number">1</span>
+                            <span class="code-text"><span class="keyword">def</span> <span
+                                    class="function">lambda_handler</span>(event, context):</span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">2</span>
+                            <span class="code-text"> <span class="string">"""Employee management
+                                    handler"""</span></span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">3</span>
+                            <span class="code-text"> <span class="keyword">return</span> process_request(event)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Tree Section -->
+        <div class="file-tree-section fade-in-up">
+            <div class="file-tree-header">
+                <h2 class="file-tree-title">
+                    <i class="fas fa-folder-tree"></i>
+                    Interactive File Explorer
+                </h2>
+                <div class="file-tree-controls">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="fileSearch" class="search-input"
+                            placeholder="Search files and folders...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="code">Code</button>
+                        <button class="filter-btn" data-filter="docs">Docs</button>
+                        <button class="filter-btn" data-filter="config">Config</button>
+                    </div>
+                    <div class="tree-actions">
+                        <button class="action-btn" id="expandAll" title="Expand All">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </button>
+                        <button class="action-btn" id="collapseAll" title="Collapse All">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="file-tree-container">
+                <div class="tree-view" id="fileTreeContainer">
+                    <!-- File tree will be populated by JavaScript -->
+                </div>
+                <div class="file-details" id="fileDetails">
+                    <div class="file-details-header">
+                        <h3><i class="fas fa-info-circle"></i> File Details</h3>
+                    </div>
+                    <div class="file-details-content">
+                        <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+                            Select a file to view details
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OpenAPI Documentation Section -->
+        <div class="openapi-section fade-in-up">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-book-open"></i>
+                    Interactive OpenAPI 3.0 Documentation
+                </h2>
+                <p class="section-subtitle">Execute real API requests with interactive testing interface</p>
+            </div>
+
+            <div class="api-overview">
+                <div class="api-info-card">
+                    <div class="api-info-header">
+                        <h3><i class="fas fa-server"></i> API Information</h3>
+                    </div>
+                    <div class="api-info-content">
+                        <div class="info-row">
+                            <span class="info-label">Base URL:</span>
+                            <span class="info-value">https://api.employee-management.example.com</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Version:</span>
+                            <span class="info-value">1.0.0</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Authentication:</span>
+                            <span class="info-value">JWT Bearer Token</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="api-endpoints">
+                <!-- CREATE EMPLOYEE -->
+                <div class="api-endpoint" data-endpoint-id="endpoint-post-employees">
+                    <div class="api-endpoint-header" onclick="toggleEndpoint('endpoint-post-employees')">
+                        <span class="http-method post">POST</span>
+                        <span class="api-path">/employees</span>
+                        <span class="api-description">Create new employee</span>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="api-endpoint-content" id="endpoint-post-employees-content">
+                        <div class="api-endpoint-body">
+                            <p class="endpoint-description">Creates a new employee record in the system</p>
+
+                            <div class="request-body-section">
+                                <h4><i class="fas fa-file-code"></i> Request Body</h4>
+                                <p>Content-Type: application/json</p>
+                                <p>Required: Yes</p>
+                                <p>Schema: <code>Employee</code></p>
+                            </div>
+
+                            <div class="api-testing-interface">
+                                <div class="api-request-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-paper-plane"></i> Try It Out
+                                        </h4>
+                                    </div>
+                                    <form class="api-request-form" id="form-post-employees">
+                                        <div class="form-group">
+                                            <label class="form-label">Base URL</label>
+                                            <input type="text" class="form-input" name="baseUrl"
+                                                value="https://api.employee-management.example.com" readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Request Body (JSON) *</label>
+                                            <textarea class="form-textarea" name="requestBody" rows="8" placeholder='{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "department": "Engineering",
+  "position": "Software Developer",
+  "salary": 75000,
+  "hireDate": "2024-01-15T00:00:00Z"
+}'></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Authorization (Optional)</label>
+                                            <input type="text" class="form-input" name="authorization"
+                                                placeholder="Bearer your-jwt-token">
+                                        </div>
+
+                                        <button type="submit" class="try-it-btn">
+                                            <i class="fas fa-play"></i> Execute Request
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="api-response-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-code"></i> Response
+                                        </h4>
+                                    </div>
+                                    <div class="response-placeholder">
+                                        <p>Click "Execute" to see the response</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="response-examples">
+                                <h4><i class="fas fa-list"></i> Response Examples</h4>
+                                <div class="response-example">
+                                    <div class="response-status success">201</div>
+                                    <p>Employee created successfully</p>
+                                    <div class="code-block">
+                                        <div class="code-block-header">
+                                            <span class="code-language">JSON</span>
+                                            <button class="copy-code-btn" onclick="copyToClipboard(this)">
+                                                <i class="fas fa-copy"></i> Copy
+                                            </button>
+                                        </div>
+                                        <pre>
+{
+  "id": "emp_123456",
+  "message": "Employee created successfully"
+}
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GET EMPLOYEE BY ID -->
+                <div class="api-endpoint" data-endpoint-id="endpoint-get-employees-id">
+                    <div class="api-endpoint-header" onclick="toggleEndpoint('endpoint-get-employees-id')">
+                        <span class="http-method get">GET</span>
+                        <span class="api-path">/employees/{id}</span>
+                        <span class="api-description">Get employee by ID</span>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="api-endpoint-content" id="endpoint-get-employees-id-content">
+                        <div class="api-endpoint-body">
+                            <p class="endpoint-description">Retrieves employee information by employee ID</p>
+
+                            <div class="parameters-section">
+                                <h4><i class="fas fa-sliders-h"></i> Parameters</h4>
+                                <table class="param-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Required</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="param-name">id</td>
+                                            <td><span class="param-type">string</span></td>
+                                            <td class="param-required">Yes</td>
+                                            <td>Employee ID</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="api-testing-interface">
+                                <div class="api-request-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-paper-plane"></i> Try It Out
+                                        </h4>
+                                    </div>
+                                    <form class="api-request-form" id="form-get-employees-id">
+                                        <div class="form-group">
+                                            <label class="form-label">Base URL</label>
+                                            <input type="text" class="form-input" name="baseUrl"
+                                                value="https://api.employee-management.example.com" readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Employee ID *</label>
+                                            <input type="text" class="form-input" name="param-id"
+                                                placeholder="emp_123456" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Authorization (Optional)</label>
+                                            <input type="text" class="form-input" name="authorization"
+                                                placeholder="Bearer your-jwt-token">
+                                        </div>
+
+                                        <button type="submit" class="try-it-btn">
+                                            <i class="fas fa-play"></i> Execute Request
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="api-response-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-code"></i> Response
+                                        </h4>
+                                    </div>
+                                    <div class="response-placeholder">
+                                        <p>Click "Execute" to see the response</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPDATE EMPLOYEE -->
+                <div class="api-endpoint" data-endpoint-id="endpoint-put-employees-id">
+                    <div class="api-endpoint-header" onclick="toggleEndpoint('endpoint-put-employees-id')">
+                        <span class="http-method put">PUT</span>
+                        <span class="api-path">/employees/{id}</span>
+                        <span class="api-description">Update employee</span>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="api-endpoint-content" id="endpoint-put-employees-id-content">
+                        <div class="api-endpoint-body">
+                            <p class="endpoint-description">Updates an existing employee record</p>
+
+                            <div class="api-testing-interface">
+                                <div class="api-request-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-paper-plane"></i> Try It Out
+                                        </h4>
+                                    </div>
+                                    <form class="api-request-form" id="form-put-employees-id">
+                                        <div class="form-group">
+                                            <label class="form-label">Employee ID *</label>
+                                            <input type="text" class="form-input" name="param-id"
+                                                placeholder="emp_123456" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Request Body (JSON) *</label>
+                                            <textarea class="form-textarea" name="requestBody" rows="8" placeholder='{
+  "firstName": "John",
+  "lastName": "Doe Updated",
+  "email": "john.doe.updated@example.com",
+  "department": "Engineering",
+  "position": "Senior Software Developer",
+  "salary": 85000
+}'></textarea>
+                                        </div>
+
+                                        <button type="submit" class="try-it-btn">
+                                            <i class="fas fa-play"></i> Execute Request
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="api-response-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-code"></i> Response
+                                        </h4>
+                                    </div>
+                                    <div class="response-placeholder">
+                                        <p>Click "Execute" to see the response</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DELETE EMPLOYEE -->
+                <div class="api-endpoint" data-endpoint-id="endpoint-delete-employees-id">
+                    <div class="api-endpoint-header" onclick="toggleEndpoint('endpoint-delete-employees-id')">
+                        <span class="http-method delete">DELETE</span>
+                        <span class="api-path">/employees/{id}</span>
+                        <span class="api-description">Delete employee</span>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="api-endpoint-content" id="endpoint-delete-employees-id-content">
+                        <div class="api-endpoint-body">
+                            <p class="endpoint-description">Removes an employee from the system</p>
+
+                            <div class="api-testing-interface">
+                                <div class="api-request-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-paper-plane"></i> Try It Out
+                                        </h4>
+                                    </div>
+                                    <form class="api-request-form" id="form-delete-employees-id">
+                                        <div class="form-group">
+                                            <label class="form-label">Employee ID *</label>
+                                            <input type="text" class="form-input" name="param-id"
+                                                placeholder="emp_123456" required>
+                                        </div>
+
+                                        <button type="submit" class="try-it-btn">
+                                            <i class="fas fa-play"></i> Execute Request
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="api-response-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-code"></i> Response
+                                        </h4>
+                                    </div>
+                                    <div class="response-placeholder">
+                                        <p>Click "Execute" to see the response</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIST ALL EMPLOYEES -->
+                <div class="api-endpoint" data-endpoint-id="endpoint-get-employees">
+                    <div class="api-endpoint-header" onclick="toggleEndpoint('endpoint-get-employees')">
+                        <span class="http-method get">GET</span>
+                        <span class="api-path">/employees</span>
+                        <span class="api-description">List all employees</span>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="api-endpoint-content" id="endpoint-get-employees-content">
+                        <div class="api-endpoint-body">
+                            <p class="endpoint-description">Retrieves a paginated list of all employees</p>
+
+                            <div class="api-testing-interface">
+                                <div class="api-request-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-paper-plane"></i> Try It Out
+                                        </h4>
+                                    </div>
+                                    <form class="api-request-form" id="form-get-employees">
+                                        <div class="form-group">
+                                            <label class="form-label">Page Number</label>
+                                            <input type="number" class="form-input" name="page" placeholder="1" min="1">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Items per Page</label>
+                                            <input type="number" class="form-input" name="limit" placeholder="10"
+                                                min="1" max="100">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Department Filter</label>
+                                            <select class="form-select" name="department">
+                                                <option value="">All Departments</option>
+                                                <option value="Engineering">Engineering</option>
+                                                <option value="Marketing">Marketing</option>
+                                                <option value="Sales">Sales</option>
+                                                <option value="HR">HR</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="try-it-btn">
+                                            <i class="fas fa-play"></i> Execute Request
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="api-response-panel">
+                                    <div class="panel-header">
+                                        <h4 class="panel-title">
+                                            <i class="fas fa-code"></i> Response
+                                        </h4>
+                                    </div>
+                                    <div class="response-placeholder">
+                                        <p>Click "Execute" to see the response</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Schemas -->
+            <div class="api-schemas">
+                <h3><i class="fas fa-code"></i> Data Schemas</h3>
+                <div class="schema-viewer">
+                    <h4><i class="fas fa-cube"></i> Employee</h4>
+                    <p><strong>Type:</strong> object</p>
+                    <div class="schema-properties">
+                        <div class="schema-property">
+                            <span class="schema-name">id</span>
+                            <span class="schema-type">string</span>
+                            <span class="schema-description">Unique employee identifier</span>
+                        </div>
+                        <div class="schema-property">
+                            <span class="schema-name">firstName</span>
+                            <span class="schema-type">string</span>
+                            <span class="schema-description">Employee first name</span>
+                            <span class="param-required">Required</span>
+                        </div>
+                        <div class="schema-property">
+                            <span class="schema-name">lastName</span>
+                            <span class="schema-type">string</span>
+                            <span class="schema-description">Employee last name</span>
+                            <span class="param-required">Required</span>
+                        </div>
+                        <div class="schema-property">
+                            <span class="schema-name">email</span>
+                            <span class="schema-type">string</span>
+                            <span class="schema-description">Employee email address</span>
+                            <span class="param-required">Required</span>
+                        </div>
+                        <div class="schema-property">
+                            <span class="schema-name">department</span>
+                            <span class="schema-type">string</span>
+                            <span class="schema-description">Employee department</span>
+                            <span class="param-required">Required</span>
+                        </div>
+                        <div class="schema-property">
+                            <span class="schema-name">position</span>
+                            <span class="schema-type">string</span>
+                            <span class="schema-description">Employee position</span>
+                            <span class="param-required">Required</span>
+                        </div>
+                        <div class="schema-property">
+                            <span class="schema-name">salary</span>
+                            <span class="schema-type">number</span>
+                            <span class="schema-description">Employee salary</span>
+                        </div>
+                        <div class="schema-property">
+                            <span class="schema-name">hireDate</span>
+                            <span class="schema-type">string</span>
+                            <span class="schema-description">Date of hire (ISO 8601)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Sections -->
+        <div class="stats-section fade-in-up">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Project Statistics
+                </h2>
+                <p class="section-subtitle">Real-time metrics and project overview</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" data-count="45">0</div>
+                        <div class="stat-label">Source Files</div>
+                        <div class="stat-change positive">+3 this week</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" data-count="12">0</div>
+                        <div class="stat-label">Directories</div>
+                        <div class="stat-change neutral">No change</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" data-count="8">0</div>
+                        <div class="stat-label">API Endpoints</div>
+                        <div class="stat-change positive">+2 this month</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" data-count="95">0</div>
+                        <div class="stat-label">Test Coverage %</div>
+                        <div class="stat-change positive">+5% this sprint</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Employee Management System. Built with modern web technologies.</p>
+        </div>
+    </footer>
+
+    <!-- Split JavaScript Files -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/file-tree.js"></script>
+    <script src="../assets/js/project-structure.js"></script>
+
+    <!-- Inline JavaScript for immediate functionality -->
+    <script>
+        // Global functions that need to be immediately available
+        function toggleEndpoint(endpointId) {
+            const header = document.querySelector(`[data-endpoint-id="${endpointId}"] .api-endpoint-header`);
+            const content = document.getElementById(`${endpointId}-content`);
+            const icon = header.querySelector('.expand-icon');
+
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                header.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                header.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function copyToClipboard(button) {
+            const codeBlock = button.closest('.code-block').querySelector('pre');
+            const text = codeBlock.textContent;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('Code copied to clipboard!', 'success');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Code copied to clipboard!', 'success');
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            // Simple notification implementation
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: white;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 16px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                z-index: 1000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+
+            if (type === 'success') {
+                notification.style.borderLeftColor = '#22c55e';
+                notification.style.borderLeftWidth = '4px';
+            } else if (type === 'error') {
+                notification.style.borderLeftColor = '#ef4444';
+                notification.style.borderLeftWidth = '4px';
+            }
+
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-${type === 'success' ? 'check' : 'info'}-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // API Testing functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add event listeners to all API forms
+            document.querySelectorAll('.api-request-form').forEach(form => {
+                form.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form);
+                    const responsePanel = form.closest('.api-testing-interface').querySelector('.api-response-panel');
+
+                    // Show loading
+                    responsePanel.innerHTML = `
+                        <div class="panel-header">
+                            <h4 class="panel-title">
+                                <i class="fas fa-spinner fa-spin"></i> Executing Request...
+                            </h4>
+                        </div>
+                        <div class="response-content">
+                            <p>Please wait while we process your request...</p>
+                        </div>
+                    `;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        const mockResponse = generateMockResponse(form.id);
+                        displayResponse(responsePanel, mockResponse);
+                        showNotification('Request executed successfully', 'success');
+                    }, 1000 + Math.random() * 2000);
+                });
+            });
+        });
+
+        function generateMockResponse(formId) {
+            if (formId.includes('post')) {
+                return {
+                    status: 201,
+                    data: {
+                        id: "emp_" + Math.random().toString(36).substr(2, 9),
+                        message: "Employee created successfully"
+                    }
+                };
+            } else if (formId.includes('get') && formId.includes('id')) {
+                return {
+                    status: 200,
+                    data: {
+                        id: "emp_123456",
+                        firstName: "John",
+                        lastName: "Doe",
+                        email: "john.doe@example.com",
+                        department: "Engineering",
+                        position: "Software Developer",
+                        salary: 75000,
+                        hireDate: "2024-01-15T00:00:00Z"
+                    }
+                };
+            } else if (formId.includes('put')) {
+                return {
+                    status: 200,
+                    data: {
+                        message: "Employee updated successfully"
+                    }
+                };
+            } else if (formId.includes('delete')) {
+                return {
+                    status: 204,
+                    data: null
+                };
+            } else {
+                return {
+                    status: 200,
+                    data: {
+                        employees: [
+                            {
+                                id: "emp_123456",
+                                firstName: "John",
+                                lastName: "Doe",
+                                department: "Engineering"
+                            },
+                            {
+                                id: "emp_789012",
+                                firstName: "Jane",
+                                lastName: "Smith",
+                                department: "Marketing"
+                            }
+                        ],
+                        pagination: {
+                            page: 1,
+                            limit: 10,
+                            total: 25
+                        }
+                    }
+                };
+            }
+        }
+
+        function displayResponse(panel, response) {
+            const statusClass = response.status < 400 ? 'success' : 'error';
+            const statusText = getStatusText(response.status);
+
+            panel.innerHTML = `
+                <div class="panel-header">
+                    <h4 class="panel-title">
+                        <i class="fas fa-code"></i> Response
+                    </h4>
+                </div>
+                <div class="response-content">
+                    <div class="response-status ${statusClass}">
+                        ${response.status} ${statusText}
+                    </div>
+                    <div class="response-body">
+                        <h5>Response Body</h5>
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <span class="code-language">JSON</span>
+                                <button class="copy-code-btn" onclick="copyToClipboard(this)">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <pre>${JSON.stringify(response.data, null, 2)}</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getStatusText(status) {
+            const statusTexts = {
+                200: 'OK',
+                201: 'Created',
+                204: 'No Content',
+                400: 'Bad Request',
+                401: 'Unauthorized',
+                404: 'Not Found',
+                500: 'Internal Server Error'
+            };
+            return statusTexts[status] || 'Unknown';
+        }
+    </script>
+</body>
+
+</html>

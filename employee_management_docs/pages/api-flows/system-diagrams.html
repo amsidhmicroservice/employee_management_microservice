@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Diagrams - Employee Management System</title>
+    
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/api-flows.css">
+    
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #06b6d4;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-dark: #020617;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+            --radius: 8px;
+            --radius-lg: 16px;
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition-medium: all 0.3s ease;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .api-flows-nav {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition-medium);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .diagram-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            padding: 2rem;
+        }
+        
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .diagram-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .diagram-controls {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .diagram-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-medium);
+        }
+        
+        .diagram-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+        
+        .diagram-content {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .mermaid {
+            text-align: center;
+            background: transparent;
+        }
+        
+        .diagram-description {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .description-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+        }
+        
+        .feature-icon {
+            color: var(--accent-color);
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="api-flows-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-sitemap"></i>
+                System Diagrams
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Overview</a>
+                <a href="sequence-flows.html" class="nav-link">Sequence Flows</a>
+                <a href="system-diagrams.html" class="nav-link active">System Diagrams</a>
+                <a href="api-documentation.html" class="nav-link">API Reference</a>
+                <a href="navigation.html" class="nav-link">Quick Access</a>
+                <a href="../architecture.html" class="nav-link">Architecture</a>
+                <a href="../../index.html" class="nav-link">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+            <!-- Hero Section -->
+            <section style="text-align: center; margin-bottom: 3rem;">
+                <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    System Architecture Diagrams
+                </h1>
+                <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Comprehensive system diagrams showing data flow, component relationships, and class structure
+                </p>
+            </section>
+
+            <!-- Data Flow Diagram -->
+            <section class="diagram-section">
+                <div class="diagram-header">
+                    <h2 class="diagram-title">
+                        <i class="fas fa-stream"></i>
+                        Data Flow Diagram
+                    </h2>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" onclick="expandDiagram('data-flow-content')">
+                            <i class="fas fa-expand"></i>
+                            Expand
+                        </button>
+                        <button class="diagram-btn" onclick="copyDiagramCode('data-flow-content')">
+                            <i class="fas fa-copy"></i>
+                            Copy Code
+                        </button>
+                    </div>
+                </div>
+
+                <div class="diagram-content" id="data-flow-content">
+                    <pre class="mermaid">
+flowchart TD
+    A[Client Application] -->|HTTP Request| B[API Gateway]
+    B -->|Validate API Key| C{Authentication}
+    C -->|Valid| D[Lambda Function]
+    C -->|Invalid| E[401 Response]
+    
+    D -->|Parse Request| F[Request Validator]
+    F -->|Valid Data| G[Business Logic]
+    F -->|Invalid Data| H[400 Response]
+    
+    G -->|CRUD Operations| I[DynamoDB]
+    I -->|Employee Data| J[Response Formatter]
+    J -->|JSON Response| K[Success Response]
+    
+    G -->|Logging| L[CloudWatch Logs]
+    G -->|Metrics| M[CloudWatch Metrics]
+    
+    N[External Services] -->|IP Detection| D
+    O[Shared Layer] -->|Common Functions| D
+    
+    style A fill:#4f46e5,stroke:#fff,stroke-width:2px,color:#fff
+    style B fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#fff
+    style D fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    style I fill:#f59e0b,stroke:#fff,stroke-width:2px,color:#fff
+    style L fill:#8b5cf6,stroke:#fff,stroke-width:2px,color:#fff
+    style M fill:#8b5cf6,stroke:#fff,stroke-width:2px,color:#fff
+                    </pre>
+                </div>
+
+                <div class="diagram-description">
+                    <h3 class="description-title">
+                        <i class="fas fa-info-circle"></i>
+                        Data Flow Overview
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                        This diagram illustrates how data flows through the Employee Management System, 
+                        from client request to database storage and response generation.
+                    </p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div>
+                                <strong>API Gateway Security</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Authentication and rate limiting
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle feature-icon"></i>
+                            <div>
+                                <strong>Request Validation</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Comprehensive input validation
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-database feature-icon"></i>
+                            <div>
+                                <strong>DynamoDB Operations</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Optimized database operations
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-chart-line feature-icon"></i>
+                            <div>
+                                <strong>Monitoring & Logging</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    CloudWatch integration
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Component Diagram -->
+            <section class="diagram-section">
+                <div class="diagram-header">
+                    <h2 class="diagram-title">
+                        <i class="fas fa-cubes"></i>
+                        Component Diagram
+                    </h2>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" onclick="expandDiagram('component-content')">
+                            <i class="fas fa-expand"></i>
+                            Expand
+                        </button>
+                        <button class="diagram-btn" onclick="copyDiagramCode('component-content')">
+                            <i class="fas fa-copy"></i>
+                            Copy Code
+                        </button>
+                    </div>
+                </div>
+
+                <div class="diagram-content" id="component-content">
+                    <pre class="mermaid">
+graph TB
+    subgraph "Client Layer"
+        CL[Client Applications]
+        WEB[Web Interface]
+        MOB[Mobile Apps]
+    end
+    
+    subgraph "API Gateway Layer"
+        AG[API Gateway]
+        AUTH[Authentication]
+        RL[Rate Limiting]
+        CORS[CORS Policy]
+    end
+    
+    subgraph "Lambda Functions"
+        CREATE[Create Employee]
+        GET[Get Employee]
+        GETALL[Get All Employees]
+        UPDATE[Update Employee]
+        DELETE[Delete Employee]
+    end
+    
+    subgraph "Shared Components"
+        VALID[Validator]
+        LOGGER[Logger]
+        UTIL[Utilities]
+        ERR[Error Handler]
+    end
+    
+    subgraph "Database Layer"
+        DDB[DynamoDB Table]
+        GSI[Global Secondary Index]
+    end
+    
+    subgraph "Monitoring"
+        CW[CloudWatch Logs]
+        CWM[CloudWatch Metrics]
+        XR[X-Ray Tracing]
+    end
+    
+    CL --> AG
+    WEB --> AG
+    MOB --> AG
+    
+    AG --> AUTH
+    AG --> RL
+    AG --> CORS
+    
+    AUTH --> CREATE
+    AUTH --> GET
+    AUTH --> GETALL
+    AUTH --> UPDATE
+    AUTH --> DELETE
+    
+    CREATE --> VALID
+    UPDATE --> VALID
+    GET --> UTIL
+    DELETE --> ERR
+    
+    CREATE --> DDB
+    GET --> DDB
+    GETALL --> DDB
+    UPDATE --> DDB
+    DELETE --> DDB
+    
+    GETALL --> GSI
+    
+    CREATE --> CW
+    GET --> CW
+    UPDATE --> CWM
+    DELETE --> XR
+    
+    style AG fill:#06b6d4,stroke:#fff,stroke-width:2px,color:#fff
+    style CREATE fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    style GET fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    style UPDATE fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    style DELETE fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff
+    style DDB fill:#f59e0b,stroke:#fff,stroke-width:2px,color:#fff
+                    </pre>
+                </div>
+
+                <div class="diagram-description">
+                    <h3 class="description-title">
+                        <i class="fas fa-puzzle-piece"></i>
+                        Component Architecture
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                        Shows the relationship between different system components and how they interact 
+                        to provide a complete Employee Management solution.
+                    </p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-layer-group feature-icon"></i>
+                            <div>
+                                <strong>Layered Architecture</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Clear separation of concerns
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-share-alt feature-icon"></i>
+                            <div>
+                                <strong>Shared Components</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Reusable validation and utilities
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-expand-arrows-alt feature-icon"></i>
+                            <div>
+                                <strong>Scalable Design</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Independent function scaling
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-eye feature-icon"></i>
+                            <div>
+                                <strong>Observability</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Comprehensive monitoring
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Class Diagram -->
+            <section class="diagram-section">
+                <div class="diagram-header">
+                    <h2 class="diagram-title">
+                        <i class="fas fa-sitemap"></i>
+                        Class Diagram
+                    </h2>
+                    <div class="diagram-controls">
+                        <button class="diagram-btn" onclick="expandDiagram('class-content')">
+                            <i class="fas fa-expand"></i>
+                            Expand
+                        </button>
+                        <button class="diagram-btn" onclick="copyDiagramCode('class-content')">
+                            <i class="fas fa-copy"></i>
+                            Copy Code
+                        </button>
+                    </div>
+                </div>
+
+                <div class="diagram-content" id="class-content">
+                    <pre class="mermaid">
+classDiagram
+    class Employee {
+        +String employee_id
+        +String email
+        +String first_name
+        +String last_name
+        +String phone_number
+        +String hire_date
+        +String department
+        +String position
+        +Number salary
+        +Boolean is_active
+        +String created_at
+        +String updated_at
+        +String deleted_at
+        +validate()
+        +toJSON()
+        +fromJSON()
+    }
+    
+    class EmployeeValidator {
+        +validateEmail(email)
+        +validatePhone(phone)
+        +validateSalary(salary)
+        +validateDate(date)
+        +validateRequired(fields)
+        +validateUpdate(data)
+    }
+    
+    class EmployeeService {
+        +createEmployee(data)
+        +getEmployee(id)
+        +getAllEmployees(filters)
+        +updateEmployee(id, data)
+        +deleteEmployee(id)
+        +generateId()
+        +formatResponse(data)
+    }
+    
+    class DatabaseService {
+        +putItem(table, item)
+        +getItem(table, key)
+        +scan(table, filters)
+        +updateItem(table, key, updates)
+        +buildUpdateExpression(updates)
+        +buildFilterExpression(filters)
+    }
+    
+    class ResponseHandler {
+        +success(data, statusCode)
+        +error(message, statusCode)
+        +validation(errors)
+        +notFound(message)
+        +unauthorized(message)
+    }
+    
+    class Logger {
+        +info(message, context)
+        +error(message, error)
+        +warn(message, context)
+        +debug(message, context)
+        +logRequest(event)
+        +logResponse(response)
+    }
+    
+    class APIGatewayEvent {
+        +String httpMethod
+        +Object pathParameters
+        +Object queryStringParameters
+        +Object headers
+        +String body
+        +Object requestContext
+    }
+    
+    Employee --> EmployeeValidator : validates
+    EmployeeService --> Employee : manages
+    EmployeeService --> DatabaseService : uses
+    EmployeeService --> ResponseHandler : responds
+    EmployeeService --> Logger : logs
+    APIGatewayEvent --> EmployeeService : triggers
+    
+    class ErrorHandler {
+        +handleValidationError(error)
+        +handleDatabaseError(error)
+        +handleUnknownError(error)
+        +formatErrorResponse(error)
+    }
+    
+    EmployeeService --> ErrorHandler : handles errors
+                    </pre>
+                </div>
+
+                <div class="diagram-description">
+                    <h3 class="description-title">
+                        <i class="fas fa-code"></i>
+                        Class Structure
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                        Object-oriented design showing the main classes, their properties, methods, 
+                        and relationships within the Employee Management System.
+                    </p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-user feature-icon"></i>
+                            <div>
+                                <strong>Employee Model</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Complete employee data structure
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-cog feature-icon"></i>
+                            <div>
+                                <strong>Service Layer</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Business logic separation
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div>
+                                <strong>Validation Layer</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Comprehensive data validation
+                                </p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-exclamation-triangle feature-icon"></i>
+                            <div>
+                                <strong>Error Handling</strong>
+                                <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary);">
+                                    Centralized error management
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Mermaid initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({ 
+                    startOnLoad: true,
+                    theme: 'dark',
+                    securityLevel: 'loose',
+                    themeVariables: {
+                        primaryColor: '#4f46e5',
+                        primaryTextColor: '#ffffff',
+                        primaryBorderColor: '#6366f1',
+                        lineColor: '#6b7280',
+                        secondaryColor: '#1f2937',
+                        tertiaryColor: '#374151'
+                    }
+                });
+            }
+        });
+
+        // Expand diagram functionality
+        function expandDiagram(diagramId) {
+            const content = document.getElementById(diagramId);
+            if (content) {
+                content.classList.toggle('expanded');
+                
+                if (content.classList.contains('expanded')) {
+                    content.style.cssText = `
+                        position: fixed !important;
+                        top: 0 !important;
+                        left: 0 !important;
+                        width: 100vw !important;
+                        height: 100vh !important;
+                        z-index: 9999 !important;
+                        background: var(--bg-dark) !important;
+                        overflow: auto !important;
+                        padding: 2rem !important;
+                    `;
+                    
+                    const closeBtn = document.createElement('button');
+                    closeBtn.innerHTML = '<i class="fas fa-times"></i> Close';
+                    closeBtn.className = 'diagram-btn close-btn';
+                    closeBtn.style.cssText = `
+                        position: absolute !important;
+                        top: 1rem !important;
+                        right: 1rem !important;
+                        z-index: 10000 !important;
+                        background: var(--error-color) !important;
+                    `;
+                    closeBtn.onclick = () => expandDiagram(diagramId);
+                    content.appendChild(closeBtn);
+                } else {
+                    content.style.cssText = '';
+                    const closeBtn = content.querySelector('.close-btn');
+                    if (closeBtn) closeBtn.remove();
+                }
+            }
+        }
+
+        // Copy diagram code functionality
+        function copyDiagramCode(diagramId) {
+            const content = document.getElementById(diagramId);
+            if (content) {
+                const mermaidElement = content.querySelector('.mermaid');
+                if (mermaidElement) {
+                    const text = mermaidElement.textContent || mermaidElement.innerText;
+                    copyToClipboard(text.trim());
+                }
+            }
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('Diagram code copied to clipboard!', 'success');
+                });
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Diagram code copied to clipboard!', 'success');
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.innerHTML = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : '#4f46e5'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                z-index: 10000;
+                font-weight: 500;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const expandedContent = document.querySelector('.diagram-content.expanded');
+                if (expandedContent) {
+                    expandDiagram(expandedContent.id);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

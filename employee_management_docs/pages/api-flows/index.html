@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Flows Overview - Employee Management System</title>
+    
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/api-flows.css">
+    
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #06b6d4;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-dark: #020617;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-color: #475569;
+            --radius: 8px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --shadow-small: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --transition-fast: all 0.2s ease;
+            --transition-medium: all 0.3s ease;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .api-flows-nav {
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition-fast);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color);
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .overview-card {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .overview-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .overview-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-large);
+            border-color: var(--primary-color);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .feature-tag {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition-medium);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .overview-card {
+                padding: 1.5rem;
+            }
+            
+            .card-icon {
+                font-size: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="api-flows-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-cogs"></i>
+                API Flows Documentation
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Overview</a>
+                <a href="sequence-flows.html" class="nav-link">Sequence Flows</a>
+                <a href="system-diagrams.html" class="nav-link">System Diagrams</a>
+                <a href="api-documentation.html" class="nav-link">API Reference</a>
+                <a href="navigation.html" class="nav-link">Quick Access</a>
+                <a href="../architecture.html" class="nav-link">Architecture</a>
+                <a href="../../index.html" class="nav-link">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+            <!-- Hero Section -->
+            <section class="hero-section" style="text-align: center; margin-bottom: 4rem;">
+                <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    API Flows Documentation
+                </h1>
+                <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto 2rem; line-height: 1.6;">
+                    Comprehensive documentation of Employee Management System API flows, 
+                    including sequence diagrams, system architecture, and complete API reference.
+                </p>
+                
+                <!-- Quick Stats -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">API Endpoints</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Sequence Diagrams</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">System Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Coverage</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Navigation Cards -->
+            <section class="overview-section">
+                <h2 style="font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 3rem; color: var(--text-primary);">
+                    Explore API Documentation
+                </h2>
+                
+                <div class="overview-grid">
+                    <!-- Sequence Flows Card -->
+                    <a href="sequence-flows.html" class="overview-card">
+                        <div class="card-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3 class="card-title">Sequence Flows</h3>
+                        <p class="card-description">
+                            Interactive sequence diagrams showing the complete flow for all 5 API operations:
+                            Create, Get Single, Get All, Update, and Delete Employee.
+                        </p>
+                        <div class="card-features">
+                            <span class="feature-tag">Create</span>
+                            <span class="feature-tag">Read</span>
+                            <span class="feature-tag">Update</span>
+                            <span class="feature-tag">Delete</span>
+                            <span class="feature-tag">List</span>
+                        </div>
+                    </a>
+
+                    <!-- System Diagrams Card -->
+                    <a href="system-diagrams.html" class="overview-card">
+                        <div class="card-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <h3 class="card-title">System Diagrams</h3>
+                        <p class="card-description">
+                            High-level system architecture diagrams including data flow, 
+                            component interactions, and class relationship models.
+                        </p>
+                        <div class="card-features">
+                            <span class="feature-tag">Data Flow</span>
+                            <span class="feature-tag">Components</span>
+                            <span class="feature-tag">Classes</span>
+                            <span class="feature-tag">Architecture</span>
+                        </div>
+                    </a>
+
+                    <!-- API Documentation Card -->
+                    <a href="api-documentation.html" class="overview-card">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="card-title">API Reference</h3>
+                        <p class="card-description">
+                            Complete API documentation with request/response schemas, 
+                            error codes, validation rules, and practical examples.
+                        </p>
+                        <div class="card-features">
+                            <span class="feature-tag">Schemas</span>
+                            <span class="feature-tag">Examples</span>
+                            <span class="feature-tag">Errors</span>
+                            <span class="feature-tag">Validation</span>
+                        </div>
+                    </a>
+
+                    <!-- Quick Navigation Card -->
+                    <a href="navigation.html" class="overview-card">
+                        <div class="card-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <h3 class="card-title">Quick Access</h3>
+                        <p class="card-description">
+                            Fast navigation to specific endpoints, quick reference cards, 
+                            and shortcuts for efficient documentation browsing.
+                        </p>
+                        <div class="card-features">
+                            <span class="feature-tag">Quick Ref</span>
+                            <span class="feature-tag">Shortcuts</span>
+                            <span class="feature-tag">Navigation</span>
+                            <span class="feature-tag">Search</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Additional Information -->
+            <section class="info-section" style="margin-top: 4rem; text-align: center;">
+                <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 3rem;">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem;">
+                        <i class="fas fa-info-circle" style="color: var(--primary-color); margin-right: 0.5rem;"></i>
+                        About This Documentation
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; max-width: 600px; margin: 0 auto;">
+                        This documentation provides comprehensive coverage of the Employee Management System APIs, 
+                        designed for stakeholders, developers, and technical teams. All diagrams are interactive 
+                        and include downloadable PlantUML/Mermaid code for integration into your own documentation.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System - Architecture Documentation</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-users-cog"></i>
+                <div class="logo-text">
+                    <h2>Employee Management System</h2>
+                    <span class="subtitle">Architecture Documentation</span>
+                </div>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/architecture.html" class="nav-link">
+                        <i class="fas fa-sitemap"></i>
+                        <span>Architecture</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/api-flows.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>API Flows</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/project-structure.html" class="nav-link">
+                        <i class="fas fa-folder-tree"></i>
+                        <span>Project Structure</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/roadmap.html" class="nav-link">
+                        <i class="fas fa-road"></i>
+                        <span>Roadmap</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Employee Management System
+                        <span class="highlight">Architecture Documentation</span>
+                    </h1>
+                    <p class="hero-description">
+                        Comprehensive documentation of a modern, serverless employee management system 
+                        built on AWS cloud infrastructure with best practices in scalability, security, and maintainability.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Serverless</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">4</span>
+                                <span class="stat-label">Microservices</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">AWS</span>
+                                <span class="stat-label">Cloud Native</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number">Secure</span>
+                                <span class="stat-label">API Gateway</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="architecture-preview">
+                        <div class="preview-box">
+                            <i class="fas fa-cloud"></i>
+                            <span>AWS Cloud</span>
+                        </div>
+                        <div class="preview-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="preview-box">
+                            <i class="fas fa-gateway"></i>
+                            <span>API Gateway</span>
+                        </div>
+                        <div class="preview-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="preview-box">
+                            <i class="fas fa-lambda"></i>
+                            <span>Lambda Functions</span>
+                        </div>
+                        <div class="preview-arrow">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="preview-box">
+                            <i class="fas fa-database"></i>
+                            <span>DynamoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overview Section -->
+        <section class="overview-section">
+            <div class="container">
+                <h2 class="section-title">System Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <i class="fas fa-rocket"></i>
+                            <h3>Modern Architecture</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Built with cutting-edge serverless technologies ensuring high scalability, availability, and cost-effectiveness.</p>
+                            <ul>
+                                <li>AWS Lambda for compute</li>
+                                <li>API Gateway for routing</li>
+                                <li>DynamoDB for storage</li>
+                                <li>Infrastructure as Code with SAM</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <i class="fas fa-cogs"></i>
+                            <h3>Microservices Design</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Independent, loosely coupled services following domain-driven design principles.</p>
+                            <ul>
+                                <li>Create Employee Service</li>
+                                <li>Get Employee Service</li>
+                                <li>Update Employee Service</li>
+                                <li>Delete Employee Service</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <i class="fas fa-layer-group"></i>
+                            <h3>Shared Layer Architecture</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Common utilities and models shared across all services for consistency and reusability.</p>
+                            <ul>
+                                <li>Response Models</li>
+                                <li>Validation Logic</li>
+                                <li>Logging Utilities</li>
+                                <li>Constants & Configuration</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Quality Assurance</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Comprehensive testing strategy ensuring reliability and maintainability.</p>
+                            <ul>
+                                <li>Unit Testing with pytest</li>
+                                <li>Code Coverage Reports</li>
+                                <li>Mock Testing for External Dependencies</li>
+                                <li>CI/CD Ready Implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Cards Section -->
+        <section class="navigation-section">
+            <div class="container">
+                <h2 class="section-title">Documentation Sections</h2>
+                <div class="nav-cards-grid">
+                    <a href="pages/architecture.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <div class="nav-card-content">
+                            <h3>System Architecture</h3>
+                            <p>High-level and low-level design diagrams, component relationships, and AWS infrastructure topology.</p>
+                            <span class="nav-card-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="pages/api-flows.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="nav-card-content">
+                            <h3>API Flows & Documentation</h3>
+                            <p>Sequence diagrams, API specifications, request/response schemas, and error handling patterns.</p>
+                            <span class="nav-card-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="pages/project-structure.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fas fa-folder-tree"></i>
+                        </div>
+                        <div class="nav-card-content">
+                            <h3>Project Structure & Analysis</h3>
+                            <p>Directory structure, architectural pros/cons, OpenAPI specifications, and technology stack analysis.</p>
+                            <span class="nav-card-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="pages/roadmap.html" class="nav-card">
+                        <div class="nav-card-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <div class="nav-card-content">
+                            <h3>Future Roadmap & Highlights</h3>
+                            <p>Enhancement timeline, project achievements, technology upgrades, and strategic planning.</p>
+                            <span class="nav-card-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack Section -->
+        <section class="tech-stack-section">
+            <div class="container">
+                <h2 class="section-title">Technology Stack</h2>
+                <div class="tech-categories">
+                    <div class="tech-category">
+                        <h3>Cloud Infrastructure</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <i class="fab fa-aws"></i>
+                                <span>AWS Lambda</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-gateway"></i>
+                                <span>API Gateway</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-database"></i>
+                                <span>DynamoDB</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>CloudWatch</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h3>Development</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <i class="fab fa-python"></i>
+                                <span>Python 3.13</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-code"></i>
+                                <span>SAM Framework</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-vial"></i>
+                                <span>pytest</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-code-branch"></i>
+                                <span>Infrastructure as Code</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h3>Monitoring & Security</h3>
+                        <div class="tech-items">
+                            <div class="tech-item">
+                                <i class="fas fa-search"></i>
+                                <span>X-Ray Tracing</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-key"></i>
+                                <span>API Key Auth</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>IAM Roles</span>
+                            </div>
+                            <div class="tech-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Usage Plans</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Employee Management System</h4>
+                    <p>Modern serverless architecture documentation for enterprise-grade employee management solutions.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Documentation</h4>
+                    <ul>
+                        <li><a href="pages/architecture.html">Architecture Diagrams</a></li>
+                        <li><a href="pages/api-flows.html">API Documentation</a></li>
+                        <li><a href="pages/project-structure.html">Project Analysis</a></li>
+                        <li><a href="pages/roadmap.html">Future Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Technical Details</h4>
+                    <ul>
+                        <li>AWS Serverless Architecture</li>
+                        <li>Python 3.13 Runtime</li>
+                        <li>DynamoDB NoSQL Database</li>
+                        <li>SAM Infrastructure Framework</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Employee Management System. Professional Architecture Documentation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <!-- Global Scripts -->
+    <script src="assets/js/global.js"></script>
+    <link rel="stylesheet" href="assets/css/global-enhancements.css">
+
+    <!-- Page Performance Monitoring -->
+    <script>
+        // Critical performance metrics
+        window.addEventListener('load', function() {
+            // Mark the page as loaded
+            performance.mark('page-interactive');
+            
+            // Log performance metrics
+            const perfData = performance.getEntriesByType('navigation')[0];
+            console.log('Performance Metrics:', {
+                pageLoadTime: perfData.loadEventEnd - perfData.loadEventStart,
+                domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                firstPaint: performance.getEntriesByType('paint')[0]?.startTime,
+                largestContentfulPaint: performance.getEntriesByType('largest-contentful-paint')[0]?.startTime
+            });
+        });
+
+        // Error handling and reporting
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            // Could send to error reporting service
+        });
+
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+            // Could send to error reporting service
+        });
+    </script>
+
+    <!-- Final Integration Completion -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark final integration as complete
+            console.log('🎉 Employee Management System Documentation - Final Integration Complete!');
+            console.log('Version:', window.GLOBAL_CONFIG?.version || '1.2.0');
+            console.log('All systems operational ✅');
+            
+            // Add completion indicator for development
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                const indicator = document.createElement('div');
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 10px;
+                    right: 10px;
+                    background: #10b981;
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    border-radius: 0.5rem;
+                    font-size: 0.875rem;
+                    z-index: 9999;
+                    opacity: 0;
+                    transform: translateY(-20px);
+                    transition: all 0.3s ease;
+                `;
+                indicator.textContent = '✅ F2 Integration Complete';
+                document.body.appendChild(indicator);
+                
+                setTimeout(() => {
+                    indicator.style.opacity = '1';
+                    indicator.style.transform = 'translateY(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    indicator.style.opacity = '0';
+                    indicator.style.transform = 'translateY(-20px)';
+                    setTimeout(() => indicator.remove(), 300);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
