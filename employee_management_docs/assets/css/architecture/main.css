@@ -1,0 +1,223 @@
+/* Architecture-specific base styles */
+:root {
+    --primary-color: #4f46e5;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Main layout styles */
+.main-content {
+    min-height: calc(100vh - 80px);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Hero section styles */
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+    border-radius: var(--radius);
+    margin-bottom: 3rem;
+    border: 1px solid rgba(79, 70, 229, 0.1);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Quick access styles */
+.quick-access-section {
+    margin-bottom: 4rem;
+}
+
+.quick-access-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.access-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.access-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.access-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transition: var(--transition);
+}
+
+.access-card.primary::before {
+    background: linear-gradient(90deg, var(--primary-color), #6366f1);
+}
+
+.access-card.secondary::before {
+    background: linear-gradient(90deg, var(--secondary-color), #0891b2);
+}
+
+.access-card.accent::before {
+    background: linear-gradient(90deg, var(--accent-color), #d97706);
+}
+
+.access-card.success::before {
+    background: linear-gradient(90deg, var(--success-color), #059669);
+}
+
+.access-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.access-card:hover::before {
+    height: 6px;
+}
+
+.access-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.access-card.primary .access-icon {
+    background: linear-gradient(135deg, var(--primary-color), #6366f1);
+}
+
+.access-card.secondary .access-icon {
+    background: linear-gradient(135deg, var(--secondary-color), #0891b2);
+}
+
+.access-card.accent .access-icon {
+    background: linear-gradient(135deg, var(--accent-color), #d97706);
+}
+
+.access-card.success .access-icon {
+    background: linear-gradient(135deg, var(--success-color), #059669);
+}
+
+.access-content {
+    flex: 1;
+}
+
+.access-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.access-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.access-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.feature-tag {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.access-arrow {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.access-card:hover .access-arrow {
+    transform: translateX(4px);
+    color: var(--primary-color);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .access-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .access-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}

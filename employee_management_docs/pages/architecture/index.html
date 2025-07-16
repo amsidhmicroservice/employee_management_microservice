@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture - Employee Management System</title>
+
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/architecture/main.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-sitemap"></i>
+                System Architecture
+            </div>
+            <div class="nav-menu">
+                <a href="../../index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-layer-group"></i>
+                    Overview
+                </a>
+                <a href="infrastructure.html" class="nav-link">
+                    <i class="fab fa-aws"></i>
+                    Infrastructure
+                </a>
+                <a href="system-flows.html" class="nav-link">
+                    <i class="fas fa-project-diagram"></i>
+                    System Flows
+                </a>
+                <a href="tech-stack.html" class="nav-link">
+                    <i class="fas fa-code"></i>
+                    Tech Stack
+                </a>
+                <a href="../api-flows/sequence-flows.html" class="nav-link">
+                    <i class="fas fa-sitemap"></i>
+                    API Flows
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1>🏗️ System Architecture Overview</h1>
+                    <p>Comprehensive documentation of our serverless employee management system architecture, built on
+                        AWS cloud services for scalability, security, and performance</p>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-bolt"></i>
+                            <div class="stat-number">
+                                < 200ms</div>
+                                    <div class="stat-label">Response Time</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="stat-number">99.9%</div>
+                                <div class="stat-label">Availability</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-server"></i>
+                                <div class="stat-number">0</div>
+                                <div class="stat-label">Server Management</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <div class="stat-number">Pay-per-use</div>
+                                <div class="stat-label">Cost Model</div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+            <!-- Architecture Quick Access -->
+            <section class="quick-access-section">
+                <h2><i class="fas fa-rocket"></i> Quick Access</h2>
+                <div class="access-grid">
+                    <a href="infrastructure.html" class="access-card primary">
+                        <div class="access-icon">
+                            <i class="fab fa-aws"></i>
+                        </div>
+                        <div class="access-content">
+                            <h3>AWS Infrastructure</h3>
+                            <p>Detailed view of our serverless infrastructure components and their interactions</p>
+                            <div class="access-features">
+                                <span class="feature-tag">API Gateway</span>
+                                <span class="feature-tag">Lambda Functions</span>
+                                <span class="feature-tag">DynamoDB</span>
+                            </div>
+                        </div>
+                        <div class="access-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="system-flows.html" class="access-card secondary">
+                        <div class="access-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="access-content">
+                            <h3>System Flows</h3>
+                            <p>Interactive sequence diagrams showing complete request-response flows</p>
+                            <div class="access-features">
+                                <span class="feature-tag">CRUD Operations</span>
+                                <span class="feature-tag">Error Handling</span>
+                                <span class="feature-tag">Security</span>
+                            </div>
+                        </div>
+                        <div class="access-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="tech-stack.html" class="access-card accent">
+                        <div class="access-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="access-content">
+                            <h3>Technology Stack</h3>
+                            <p>Complete breakdown of technologies, frameworks, and tools used</p>
+                            <div class="access-features">
+                                <span class="feature-tag">Backend</span>
+                                <span class="feature-tag">Database</span>
+                                <span class="feature-tag">DevOps</span>
+                            </div>
+                        </div>
+                        <div class="access-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="../api-flows/sequence-flows.html" class="access-card success">
+                        <div class="access-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <div class="access-content">
+                            <h3>API Sequence Flows</h3>
+                            <p>Detailed API interaction patterns and sequence diagrams</p>
+                            <div class="access-features">
+                                <span class="feature-tag">Request Flow</span>
+                                <span class="feature-tag">Error Paths</span>
+                                <span class="feature-tag">Validation</span>
+                            </div>
+                        </div>
+                        <div class="access-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Architecture Principles -->
+            <section class="principles-section">
+                <h2><i class="fas fa-star"></i> Architecture Principles</h2>
+                <div class="principles-grid">
+                    <div class="principle-card">
+                        <div class="principle-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security First</h3>
+                        <p>Built-in security with IAM roles, API keys, and encrypted data transmission ensuring
+                            enterprise-grade protection</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </div>
+                        <h3>Auto Scaling</h3>
+                        <p>Automatic scaling based on demand with zero configuration, handling traffic spikes seamlessly
+                        </p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>Cost Optimization</h3>
+                        <p>Pay-per-request pricing model with no idle costs, optimized for both development and
+                            production</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>High Availability</h3>
+                        <p>Built on AWS managed services with 99.9% uptime guarantee and automatic failover capabilities
+                        </p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Observability</h3>
+                        <p>Comprehensive monitoring with CloudWatch, X-Ray tracing, and custom metrics for performance
+                            insights</p>
+                    </div>
+                    <div class="principle-card">
+                        <div class="principle-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Developer Experience</h3>
+                        <p>Simple deployment process, automated testing, and comprehensive documentation for rapid
+                            development</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Overview -->
+            <section class="overview-section">
+                <h2><i class="fas fa-eye"></i> System Overview</h2>
+                <div class="overview-content">
+                    <div class="overview-text">
+                        <h3>Serverless Employee Management System</h3>
+                        <p>Our system is built using modern serverless architecture principles, leveraging AWS managed
+                            services to provide a robust, scalable, and cost-effective solution for employee data
+                            management.</p>
+
+                        <div class="overview-features">
+                            <div class="feature-group">
+                                <h4><i class="fas fa-users"></i> Core Features</h4>
+                                <ul>
+                                    <li>Complete CRUD operations for employee data</li>
+                                    <li>Real-time data validation and error handling</li>
+                                    <li>Comprehensive audit trail and logging</li>
+                                    <li>RESTful API with OpenAPI documentation</li>
+                                </ul>
+                            </div>
+
+                            <div class="feature-group">
+                                <h4><i class="fas fa-cogs"></i> Technical Features</h4>
+                                <ul>
+                                    <li>Serverless architecture with zero server management</li>
+                                    <li>NoSQL database with automatic scaling</li>
+                                    <li>API Gateway with built-in security and throttling</li>
+                                    <li>Distributed tracing and monitoring</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-diagram">
+                        <div class="diagram-container">
+                            <div class="diagram-title">High-Level Architecture</div>
+                            <svg viewBox="0 0 400 300" class="architecture-overview-svg">
+                                <defs>
+                                    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+                                    </linearGradient>
+                                    <linearGradient id="awsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff9900;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#ff7700;stop-opacity:1" />
+                                    </linearGradient>
+                                    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Client -->
+                                <rect x="20" y="120" width="80" height="60" fill="url(#clientGrad)" rx="8" />
+                                <text x="60" y="140" text-anchor="middle" fill="white" font-size="12"
+                                    font-weight="600">Client</text>
+                                <text x="60" y="155" text-anchor="middle" fill="#e2e8f0"
+                                    font-size="10">Application</text>
+
+                                <!-- API Gateway -->
+                                <rect x="160" y="120" width="80" height="60" fill="url(#awsGrad)" rx="8" />
+                                <text x="200" y="140" text-anchor="middle" fill="white" font-size="12"
+                                    font-weight="600">API</text>
+                                <text x="200" y="155" text-anchor="middle" fill="#fff7ed" font-size="10">Gateway</text>
+
+                                <!-- Lambda -->
+                                <rect x="160" y="40" width="80" height="60" fill="url(#awsGrad)" rx="8" />
+                                <text x="200" y="60" text-anchor="middle" fill="white" font-size="12"
+                                    font-weight="600">Lambda</text>
+                                <text x="200" y="75" text-anchor="middle" fill="#fff7ed" font-size="10">Functions</text>
+
+                                <!-- DynamoDB -->
+                                <rect x="300" y="120" width="80" height="60" fill="url(#dbGrad)" rx="8" />
+                                <text x="340" y="140" text-anchor="middle" fill="white" font-size="12"
+                                    font-weight="600">DynamoDB</text>
+                                <text x="340" y="155" text-anchor="middle" fill="#cffafe" font-size="10">Database</text>
+
+                                <!-- Arrows -->
+                                <path d="M 100 150 L 160 150" stroke="#64748b" stroke-width="2"
+                                    marker-end="url(#arrow)" />
+                                <path d="M 200 120 L 200 100" stroke="#64748b" stroke-width="2"
+                                    marker-end="url(#arrow)" />
+                                <path d="M 240 70 L 300 140" stroke="#64748b" stroke-width="2"
+                                    marker-end="url(#arrow)" />
+
+                                <defs>
+                                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3"
+                                        orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/architecture/navigation.js"></script>
+</body>
+
+</html>

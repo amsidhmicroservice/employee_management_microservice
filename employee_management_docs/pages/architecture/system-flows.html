@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Flows - Employee Management System</title>
+
+    <!-- External Dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/architecture/main.css">
+    <link rel="stylesheet" href="../../assets/css/architecture/flows.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-project-diagram"></i>
+                System Flows
+            </div>
+            <div class="nav-menu">
+                <a href="../../index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    Overview
+                </a>
+                <a href="infrastructure.html" class="nav-link">
+                    <i class="fab fa-aws"></i>
+                    Infrastructure
+                </a>
+                <a href="system-flows.html" class="nav-link active">
+                    <i class="fas fa-project-diagram"></i>
+                    System Flows
+                </a>
+                <a href="tech-stack.html" class="nav-link">
+                    <i class="fas fa-code"></i>
+                    Tech Stack
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1>🔄 System Flow Diagrams</h1>
+                    <p>Comprehensive sequence diagrams showing request flows, data processing, and system interactions
+                        for all employee management operations</p>
+                </div>
+            </section>
+
+            <!-- Employee Flows Component -->
+            <section class="flows-section">
+                <div id="employee-flows-component"></div>
+            </section>
+
+            <!-- Flow Summary -->
+            <section class="flow-summary">
+                <h2><i class="fas fa-list-check"></i> Flow Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-card create">
+                        <div class="summary-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Create Employee</h3>
+                            <p>Validates input data, generates unique ID, and stores in DynamoDB with comprehensive
+                                error handling</p>
+                            <div class="summary-steps">
+                                <span class="step-count">7 Steps</span>
+                                <span class="response-time">~150ms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card read">
+                        <div class="summary-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Get Employee</h3>
+                            <p>Retrieves employee data by ID with optimized database queries and caching strategies</p>
+                            <div class="summary-steps">
+                                <span class="step-count">5 Steps</span>
+                                <span class="response-time">~100ms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card update">
+                        <div class="summary-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Update Employee</h3>
+                            <p>Validates changes, checks existence, and performs atomic updates with full audit trail
+                            </p>
+                            <div class="summary-steps">
+                                <span class="step-count">8 Steps</span>
+                                <span class="response-time">~180ms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card delete">
+                        <div class="summary-icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Delete Employee</h3>
+                            <p>Soft delete implementation preserving data integrity with comprehensive logging</p>
+                            <div class="summary-steps">
+                                <span class="step-count">6 Steps</span>
+                                <span class="response-time">~120ms</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/architecture/zoom.js"></script>
+    <script>
+        // Load Employee Flows Component
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('./components/employee-flows.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('employee-flows-component').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading component:', error));
+        });
+    </script>
+</body>
+
+</html>

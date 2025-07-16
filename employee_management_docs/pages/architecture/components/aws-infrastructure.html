@@ -1,0 +1,33 @@
+<svg id="aws-infrastructure" class="zoomable-image" onclick="toggleFullscreen('aws-infrastructure')" width="100%"
+    height="600" viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="clientGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+        </linearGradient>
+        <linearGradient id="awsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff9900;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#ffcc00;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+    <!-- Background Rectangle with Gradient -->
+    <rect width="100%" height="100%" fill="url(#bgGradient)" />
+    <!-- Client Area -->
+    <g id="client" transform="translate(100, 100)">
+        <rect x="0" y="0" width="1200" height="600" rx="20" ry="20" fill="url(#clientGradient)" />
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#ffffff" font-size="40">
+            Client-Side
+        </text>
+    </g>
+    <!-- AWS Infrastructure -->
+    <g id="aws" transform="translate(100, 100)">
+        <rect x="0" y="0" width="1200" height="600" rx="20" ry="20" fill="url(#awsGradient)" />
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#000000" font-size="40">
+            AWS Infrastructure
+        </text>
+    </g>
+</svg>
